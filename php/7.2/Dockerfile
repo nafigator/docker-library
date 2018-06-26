@@ -1,17 +1,9 @@
 FROM debian:stretch-slim
 
 ARG USER_ID
-ENV USER_ID "$USER_ID"
-
 ARG USER_PASSWORD
-ENV USER_PASSWORD "$USER_PASSWORD"
-
 ARG USER_NAME
-ENV USER_NAME "$USER_NAME"
-
-# Save Xdebug host to environment
 ARG XDEBUG_HOST
-ENV XDEBUG_HOST "$XDEBUG_HOST"
 
 ARG DEBIAN_FRONTEND=noninteractive
 # Set up debconf non-interactive mode
