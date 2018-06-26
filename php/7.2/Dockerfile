@@ -53,7 +53,7 @@ RUN umask 0022 \
         curl \
     && apt-get autoremove -y --purge \
     && apt-get clean \
-    && mkdir /run/php /var/www/.composer\
+    && mkdir /run/php /var/www/.composer \
     && touch /var/log/php7.2-fpm.log \
     && chown www-data:www-data /run/php /var/log/php7.2-fpm.log /var/www/.composer \
     && rm /etc/php/7.2/cli/conf.d/20-xdebug.ini \
