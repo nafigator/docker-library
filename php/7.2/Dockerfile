@@ -52,22 +52,22 @@ RUN umask 0022 \
         gnupg \
         apt-utils \
         curl \
+    && touch /var/log/php7.2-fpm.log \
+    && mkdir -p /run/php /var/www/.composer \
+    && rm /etc/php/7.2/cli/conf.d/20-xdebug.ini \
     && apt-get autoremove -y --purge \
     && apt-get clean \
-    && groupadd -g ${USER_ID} ${USER_NAME} \
-    && useradd -u ${USER_ID} -g ${USER_NAME} -p ${USER_PASSWORD} -b /var/www/html -d /var/www ${USER_NAME} \
-    && usermod -aG sudo ${USER_NAME} \
-    && mkdir -p /run/php /var/www/.composer \
-    && touch /var/log/php7.2-fpm.log \
-    && chown ${USER_ID}:${USER_ID} /run/php /var/log/php7.2-fpm.log /var/www/.composer \
-    && rm /etc/php/7.2/cli/conf.d/20-xdebug.ini \
     && rm -rf /var/tmp/* /tmp/*
 
 # Copy configs
 COPY ./pool.d/ /etc/php/7.2/fpm/pool.d/
 COPY ./php-fpm.conf /etc/php/7.2/fpm/
 
-RUN echo "xdebug.remote_host = ${XDEBUG_HOST}\nxdebug.remote_enable = 1" >> /etc/php/7.2/mods-available/xdebug.ini
+RUN groupadd -g ${USER_ID} ${USER_NAME} \
+    && useradd -u ${USER_ID} -g ${USER_NAME} -p ${USER_PASSWORD} -b /var/www/html -d /var/www ${USER_NAME} \
+    && usermod -aG sudo ${USER_NAME} \
+    && chown ${USER_ID}:${USER_ID} /run/php /var/log/php7.2-fpm.log /var/www/.composer \
+    && echo "xdebug.remote_host = ${XDEBUG_HOST}\nxdebug.remote_enable = 1" >> /etc/php/7.2/mods-available/xdebug.ini
 
 # Launch fpm
 CMD ["php-fpm7.2"]
