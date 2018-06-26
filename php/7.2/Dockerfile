@@ -1,17 +1,5 @@
 FROM debian:stretch-slim
 
-# Save user ID to environment
-ARG USER_ID
-ENV USER_ID "$USER_ID"
-
-# Save user password to environment
-ARG USER_PASSWORD
-ENV USER_PASSWORD "$USER_PASSWORD"
-
-# Save user name to environment
-ARG USER_NAME
-ENV USER_NAME "$USER_NAME"
-
 # Save Xdebug host to environment
 ARG XDEBUG_HOST
 ENV XDEBUG_HOST "$XDEBUG_HOST"
@@ -65,12 +53,9 @@ RUN umask 0022 \
         curl \
     && apt-get autoremove -y --purge \
     && apt-get clean \
-    && groupadd -g ${USER_ID} ${USER_NAME} \
-    && useradd -u ${USER_ID} -g ${USER_NAME} -p ${USER_PASSWORD} -b /var/www/html/ -d /var/www/ lotus \
-    && usermod -aG sudo ${USER_NAME} \
     && mkdir /run/php /var/www/.composer\
     && touch /var/log/php7.2-fpm.log \
-    && chown ${USER_ID}:${USER_ID} /run/php /var/log/php7.2-fpm.log /var/www/.composer \
+    && chown www-data:www-data /run/php /var/log/php7.2-fpm.log /var/www/.composer \
     && rm /etc/php/7.2/cli/conf.d/20-xdebug.ini \
     && rm -rf /var/tmp/* /tmp/*
 
@@ -85,6 +70,6 @@ CMD ["php-fpm7.2"]
 
 EXPOSE 9000
 
-USER ${USER_NAME}
+USER www-data
 
 WORKDIR /var/www/html/
