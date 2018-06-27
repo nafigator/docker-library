@@ -63,17 +63,9 @@ RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt
 COPY ./pool.d/ /etc/php/7.2/fpm/pool.d/
 COPY ./php-fpm.conf /etc/php/7.2/fpm/
 
-RUN groupadd -g ${USER_ID} ${USER_NAME} \
-    && useradd -u ${USER_ID} -g ${USER_NAME} -p ${USER_PASSWORD} -b /var/www/html -d /var/www ${USER_NAME} \
-    && usermod -aG sudo ${USER_NAME} \
-    && chown ${USER_ID}:${USER_ID} /run/php /var/log/php7.2-fpm.log /var/www/.composer \
-    && echo "xdebug.remote_host = ${XDEBUG_HOST}\nxdebug.remote_enable = 1" >> /etc/php/7.2/mods-available/xdebug.ini
-
 # Launch fpm
 CMD ["php-fpm7.2"]
 
 EXPOSE 9000
-
-USER ${USER_NAME}
 
 WORKDIR /var/www/html/
