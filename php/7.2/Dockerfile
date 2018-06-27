@@ -1,10 +1,5 @@
 FROM debian:stretch-slim
 
-ARG USER_ID
-ARG USER_PASSWORD
-ARG USER_NAME
-ARG XDEBUG_HOST
-
 ARG DEBIAN_FRONTEND=noninteractive
 # Set up debconf non-interactive mode
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
