@@ -10,7 +10,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 
 # Install packages needed for PHP
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN umask 0022 && apt-get update && apt-get install -y --no-install-recommends \
     apt-transport-https \
     lsb-release \
     ca-certificates \
@@ -20,12 +20,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # Keys for PHP installation
 ADD https://packages.sury.org/php/apt.gpg /etc/apt/trusted.gpg.d/php.gpg
+RUN chmod 644 /etc/apt/trusted.gpg.d/php.gpg
 # Copy composer installer
 ADD https://getcomposer.org/installer /tmp/
 
-RUN umask 0022 \
-    && chmod 644 /etc/apt/trusted.gpg.d/php.gpg \
-    && echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list \
+RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list \
     && apt-get update \
     && apt-get install -y \
         php-common \
