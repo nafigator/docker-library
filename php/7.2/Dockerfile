@@ -40,7 +40,8 @@ RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt
         php7.2-zip \
         php7.2-curl \
         php7.2-gd \
-        php7.0-intl \
+        php7.2-intl \
+        php7.2-soap \
         php-memcached \
         php-xdebug \
     && php /tmp/installer --no-ansi --install-dir=/usr/local/bin --filename=composer \
