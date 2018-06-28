@@ -40,7 +40,7 @@ services:
     restart: unless-stopped
 ```
 
-`USER_ID` value must be equals to user `GID` of your host machine.
+`USER_ID` value must be equals to user `UID` of your host machine.
 
 ### Xdebug setup (optional)
 If you want to Xdebug using FPM SAPI:
