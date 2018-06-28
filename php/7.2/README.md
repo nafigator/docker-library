@@ -43,11 +43,11 @@ services:
 `USER_ID` value must be equals to user `UID` of your host machine.
 
 ### Xdebug setup (optional)
-If you want to Xdebug using FPM SAPI:
+If you want to debug using FPM SAPI:
 ```bash
 docker-compose exec -u0 php ln -s /etc/php/7.2/mods-available/xdebug.ini /etc/php/7.2/fpm/conf.d/20-xdebug.ini
 ```
-If you want to Xdebug using CLI SAPI:
+If you want to debug using CLI SAPI:
 ```bash
 docker-compose exec -u0 php ln -s /etc/php/7.2/mods-available/xdebug.ini /etc/php/7.2/cli/conf.d/20-xdebug.ini
 ```
