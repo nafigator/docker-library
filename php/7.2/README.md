@@ -45,11 +45,11 @@ services:
 ### Xdebug setup (optional)
 If you want to Xdebug using FPM SAPI:
 ```bash
-docker-compose exec -u0 php ln -s /etc/php/7.2/fpm/conf.d/20-xdebug.ini /etc/php/7.2/mods-available/xdebug.ini
+docker-compose exec -u0 php ln -s /etc/php/7.2/mods-available/xdebug.ini /etc/php/7.2/fpm/conf.d/20-xdebug.ini
 ```
 If you want to Xdebug using CLI SAPI:
 ```bash
-docker-compose exec -u0 php ln -s /etc/php/7.2/cli/conf.d/20-xdebug.ini /etc/php/7.2/mods-available/xdebug.ini
+docker-compose exec -u0 php ln -s /etc/php/7.2/mods-available/xdebug.ini /etc/php/7.2/cli/conf.d/20-xdebug.ini
 ```
 
 Than create `docker-compose.override.yml` inside root of your project
