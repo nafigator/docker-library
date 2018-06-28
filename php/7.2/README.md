@@ -67,3 +67,12 @@ services:
 docker-compose build --force-rm
 docker-compose up -d --remove-orphans
 ```
+
+### Extending PHP configuration
+
+Create new volume in `docker-compose.yml` like this:
+```yaml
+    volumes:
+      - ./:/var/www/html/
+      - ./custom.ini:/etc/php/7.2/fpm/conf.d/99-custom.ini
+```
