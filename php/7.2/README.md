@@ -4,7 +4,7 @@
 # How to use this image
 ### Create a `Dockerfile`
 
-Mentioned path for `Dockerfile` - `build/php`
+Suggested path for `Dockerfile` - `build/php`
 ```dockerfile
 FROM nafigat0r/php:7.2
 
@@ -24,7 +24,7 @@ USER ${USER_NAME}
 
 ### Create a `docker-compose.yml`
 
-Mentioned path for `docker-compose.yml` root of your project.
+Suggested path for `docker-compose.yml` root of your project.
 ```yaml
 version: '3.6'
 services:
