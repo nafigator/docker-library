@@ -39,20 +39,25 @@ RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt
         php7.2-soap \
         php-memcached \
         php-xdebug \
-    && php /tmp/installer --no-ansi --install-dir=/usr/local/bin --filename=composer \
-    && apt-get remove -y --purge \
+    && mkdir -p /run/php
+
+# Install Composer
+RUN mkdir -p /var/www/.composer \
+    && php /tmp/installer --no-ansi --install-dir=/usr/local/bin --filename=composer
+
+# Cleanup
+RUN apt-get remove -y --purge \
         apt-transport-https \
         lsb-release \
         ca-certificates \
         gnupg \
         apt-utils \
         curl \
-    && touch /var/log/php7.2-fpm.log \
-    && mkdir -p /run/php /var/www/.composer \
-    && rm /etc/php/7.2/cli/conf.d/20-xdebug.ini \
     && apt-get autoremove -y --purge \
     && apt-get clean \
-    && rm -rf /var/tmp/* /tmp/*
+    && rm -rf /var/tmp/* /tmp/* \
+        /etc/php/7.2/cli/conf.d/20-xdebug.ini \
+        /etc/php/7.2/fpm/conf.d/20-xdebug.ini
 
 # Copy configs
 COPY ./pool.d/ /etc/php/7.2/fpm/pool.d/
