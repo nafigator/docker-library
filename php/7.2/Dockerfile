@@ -11,7 +11,15 @@ RUN umask 0022 && apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     curl \
     gnupg \
+    locale-gen \
     lsb-release
+
+RUN locale-gen en_US.UTF-8
+
+ENV LANGUAGE=en_US.UTF-8
+ENV LC_ALL=en_US.UTF-8
+ENV LC_CTYPE=en_US.UTF-8
+ENV LANG=en_US.UTF-8
 
 # Keys for PHP installation
 ADD https://packages.sury.org/php/apt.gpg /etc/apt/trusted.gpg.d/php.gpg
@@ -52,6 +60,7 @@ RUN apt-get remove -y --purge \
         ca-certificates \
         curl \
         gnupg \
+        locale-gen \
         lsb-release \
     && apt-get autoremove -y --purge \
     && apt-get clean \
