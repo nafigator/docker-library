@@ -7,11 +7,11 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 # Install packages needed for PHP
 RUN umask 0022 && apt-get update && apt-get install -y --no-install-recommends \
     apt-transport-https \
-    lsb-release \
-    ca-certificates \
-    gnupg \
     apt-utils \
-    curl
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
 
 # Keys for PHP installation
 ADD https://packages.sury.org/php/apt.gpg /etc/apt/trusted.gpg.d/php.gpg
@@ -23,22 +23,22 @@ RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt
     && apt-get update \
     && apt-get install -y \
         php-common \
-        php7.2-cli \
-        php7.2-fpm \
-        php7.2-json \
-        php7.2-opcache \
-        php7.2-readline \
-        php7.2-bcmath \
-        php7.2-mbstring \
-        php7.2-mysql \
-        php7.2-xml \
-        php7.2-zip \
-        php7.2-curl \
-        php7.2-gd \
-        php7.2-intl \
-        php7.2-soap \
         php-memcached \
         php-xdebug \
+        php7.2-bcmath \
+        php7.2-cli \
+        php7.2-curl \
+        php7.2-fpm \
+        php7.2-gd \
+        php7.2-intl \
+        php7.2-json \
+        php7.2-mbstring \
+        php7.2-mysql \
+        php7.2-opcache \
+        php7.2-readline \
+        php7.2-soap \
+        php7.2-xml \
+        php7.2-zip \
     && mkdir -p /run/php
 
 # Install Composer
@@ -48,11 +48,11 @@ RUN mkdir -p /var/www/.composer \
 # Cleanup
 RUN apt-get remove -y --purge \
         apt-transport-https \
-        lsb-release \
-        ca-certificates \
-        gnupg \
         apt-utils \
+        ca-certificates \
         curl \
+        gnupg \
+        lsb-release \
     && apt-get autoremove -y --purge \
     && apt-get clean \
     && rm -rf /var/tmp/* /tmp/* \
@@ -60,8 +60,8 @@ RUN apt-get remove -y --purge \
         /etc/php/7.2/fpm/conf.d/20-xdebug.ini
 
 # Copy configs
-COPY ./pool.d/ /etc/php/7.2/fpm/pool.d/
 COPY ./php-fpm.conf /etc/php/7.2/fpm/
+COPY ./pool.d/ /etc/php/7.2/fpm/pool.d/
 
 # Launch fpm
 CMD ["php-fpm7.2"]
