@@ -11,7 +11,7 @@ RUN umask 0022 && apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     curl \
     gnupg \
-    locale-gen \
+    locales \
     lsb-release
 
 RUN locale-gen en_US.UTF-8
@@ -60,7 +60,7 @@ RUN apt-get remove -y --purge \
         ca-certificates \
         curl \
         gnupg \
-        locale-gen \
+        locales \
         lsb-release \
     && apt-get autoremove -y --purge \
     && apt-get clean \
