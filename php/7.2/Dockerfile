@@ -56,7 +56,8 @@ RUN apt-get remove -y --purge \
     && apt-get autoremove -y --purge \
     && apt-get clean \
     && rm -rf /var/tmp/* /tmp/* \
-        /var/lib/apt/lists/*
+        /var/lib/apt/lists/* \
+        /var/log/apt/* \
         /etc/php/7.2/cli/conf.d/20-xdebug.ini \
         /etc/php/7.2/fpm/conf.d/20-xdebug.ini
 
