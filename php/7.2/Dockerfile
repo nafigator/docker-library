@@ -17,10 +17,6 @@ RUN umask 0022 && apt-get update && apt-get install -y --no-install-recommends \
 RUN echo -e "en_US.UTF-8 UTF-8\nru_RU.UTF-8 UTF-8" > /etc/locale.gen \
     && locale-gen
 
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.UTF-8
-
 # Keys for PHP installation
 ADD https://packages.sury.org/php/apt.gpg /etc/apt/trusted.gpg.d/php.gpg
 RUN chmod 644 /etc/apt/trusted.gpg.d/php.gpg
