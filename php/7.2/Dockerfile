@@ -14,7 +14,7 @@ RUN umask 0022 && apt-get update && apt-get install -y --no-install-recommends \
     locales \
     lsb-release
 
-RUN echo -e "en_US.UTF-8 UTF-8\nru_RU.UTF-8 UTF-8" > /etc/locale.gen \
+RUN printf "en_US.UTF-8 UTF-8\nru_RU.UTF-8 UTF-8" > /etc/locale.gen \
     && locale-gen
 
 # Keys for PHP installation
