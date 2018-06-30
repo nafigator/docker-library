@@ -6,7 +6,7 @@
 
 Suggested path for `Dockerfile` - `build/php`
 ```dockerfile
-FROM nafigat0r/php:7.2
+FROM nafigat0r/php:7.2-slim
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG USER_ID
@@ -79,6 +79,5 @@ docker-compose up -d --remove-orphans
 Create new volume in `docker-compose.yml` like this:
 ```yaml
     volumes:
-      - ./:/var/www/html/
       - ./custom.ini:/etc/php/7.2/fpm/conf.d/99-custom.ini
 ```
