@@ -1,27 +1,21 @@
 FROM debian:stretch-slim
 
 ARG DEBIAN_FRONTEND=noninteractive
-# Set up debconf non-interactive mode
-RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 
 # Install packages needed for PHP
-RUN umask 0022 && apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install -yq --no-install-recommends \
     apt-transport-https \
-    apt-utils \
     ca-certificates \
-    curl \
     gnupg \
-    lsb-release
+    locales
 
 # Keys for PHP installation
 ADD https://packages.sury.org/php/apt.gpg /etc/apt/trusted.gpg.d/php.gpg
 RUN chmod 644 /etc/apt/trusted.gpg.d/php.gpg
-# Copy composer installer
-ADD https://getcomposer.org/installer /tmp/
 
-RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list \
+RUN echo "deb https://packages.sury.org/php/ stretch main" > /etc/apt/sources.list.d/php.list \
     && apt-get update \
-    && apt-get install -y \
+    && apt-get install -yq --no-install-recommends \
         php-common \
         php-memcached \
         php-xdebug \
@@ -42,19 +36,18 @@ RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt
         git \
     && mkdir -p /run/php
 
+# Copy composer installer
+ADD https://getcomposer.org/installer /tmp/installer
+ADD https://composer.github.io/snapshots.pub /var/www/.composer/keys.dev.pub
+ADD https://composer.github.io/releases.pub /var/www/.composer/keys.tags.pub
+
 # Install Composer
 RUN mkdir -p /var/www/.composer \
     && php /tmp/installer --no-ansi --install-dir=/usr/local/bin --filename=composer
 
 # Cleanup
-RUN apt-get remove -y --purge \
+RUN apt-get purge -y --autoremove \
         apt-transport-https \
-        apt-utils \
-        ca-certificates \
-        curl \
-        gnupg \
-        lsb-release \
-    && apt-get autoremove -y --purge \
     && apt-get clean \
     && rm -rf /var/tmp/* /tmp/* \
         /var/lib/apt/lists/* \
@@ -65,6 +58,13 @@ RUN apt-get remove -y --purge \
 # Copy configs
 COPY ./php-fpm.conf /etc/php/7.2/fpm/
 COPY ./pool.d/ /etc/php/7.2/fpm/pool.d/
+
+# Install locale
+RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
+	&& dpkg-reconfigure locales \
+	&& update-locale LANG=en_US.UTF-8
+
+ENV LANG en_US.UTF-8
 
 # Launch fpm
 CMD ["php-fpm7.2"]
