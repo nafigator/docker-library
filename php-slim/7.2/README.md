@@ -1,12 +1,12 @@
 # Supported tags and respective `Dockerfile` links
--	[`7.2-slim` (*7.2-slim/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/php/7.2-slim/Dockerfile)
+-	[`7.2` (*7.2/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/php-slim/7.2/Dockerfile)
 
 # How to use this image
 ### Create a `Dockerfile`
 
 Suggested path for `Dockerfile` - `build/php`
 ```dockerfile
-FROM nafigat0r/php:7.2-slim
+FROM nafigat0r/php-slim:7.2
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG USER_ID
