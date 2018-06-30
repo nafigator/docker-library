@@ -1,6 +1,8 @@
 # Supported tags and respective `Dockerfile` links
 -	[`7.2` (*7.2/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/php/7.2/Dockerfile)
-
+# Includes
+* Composer v1.6.5
+* Git v2.11.0
 # How to use this image
 ### Create a `Dockerfile`
 
@@ -73,6 +75,17 @@ xdebug.remote_enable = 1
 ```bash
 docker-compose build --force-rm
 docker-compose up -d --remove-orphans
+```
+
+### Composer
+Outside container use:
+```bash
+docker-compose exec php composer diagnose
+```
+Inside container use:
+```bash
+docker-compose exec php bash
+composer diagnose
 ```
 
 ### Extending PHP configuration
