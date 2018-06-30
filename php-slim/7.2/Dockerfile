@@ -46,8 +46,8 @@ RUN apt-get purge -y --autoremove \
         /etc/php/7.2/fpm/conf.d/20-xdebug.ini
 
 # Copy configs
-COPY php-fpm.conf /etc/php/7.2/fpm/
-COPY pool.d /etc/php/7.2/fpm/pool.d/
+COPY ./php-fpm.conf /etc/php/7.2/fpm/
+COPY ./pool.d /etc/php/7.2/fpm/pool.d/
 
 # Install locale
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
