@@ -8,6 +8,7 @@ Suggested path for `Dockerfile` - `build/php`
 ```dockerfile
 FROM nafigat0r/php:7.2
 
+ARG DEBIAN_FRONTEND=noninteractive
 ARG USER_ID
 ARG USER_PASSWORD
 ARG USER_NAME
@@ -16,6 +17,17 @@ RUN groupadd -g ${USER_ID} ${USER_NAME} \
     && useradd -u ${USER_ID} -g ${USER_NAME} -p ${USER_PASSWORD} -b /var/www/html -d /var/www ${USER_NAME} \
     && usermod -aG sudo ${USER_NAME} \
     && chown -R ${USER_ID}:${USER_ID} /run/php /var/www/.composer
+
+# Change locale
+#RUN sed -i -e "s/# ru_RU.UTF-8 UTF-8/ru_RU.UTF-8 UTF-8/" /etc/locale.gen \
+#    && dpkg-reconfigure locales \
+#    && update-locale LANG=ru_RU.UTF-8
+
+# ENV LANG ru_RU.UTF-8
+
+# Change the docker default timezone from UTC to MSK
+#RUN echo "Europe/Moscow" > /etc/timezone \
+#    && dpkg-reconfigure tzdata
 
 USER ${USER_NAME}
 ```
