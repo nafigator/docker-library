@@ -11,13 +11,11 @@ FROM nafigat0r/php:7.2
 ARG USER_ID
 ARG USER_PASSWORD
 ARG USER_NAME
-ARG XDEBUG_HOST
 
 RUN groupadd -g ${USER_ID} ${USER_NAME} \
     && useradd -u ${USER_ID} -g ${USER_NAME} -p ${USER_PASSWORD} -b /var/www/html -d /var/www ${USER_NAME} \
     && usermod -aG sudo ${USER_NAME} \
-    && chown ${USER_ID}:${USER_ID} /run/php /var/www/.composer \
-    && echo "xdebug.remote_host = ${XDEBUG_HOST}\nxdebug.remote_enable = 1" >> /etc/php/7.2/mods-available/xdebug.ini
+    && chown -R ${USER_ID}:${USER_ID} /run/php /var/www/.composer
 
 USER ${USER_NAME}
 ```
@@ -52,16 +50,13 @@ If you want to debug using CLI SAPI:
 docker-compose exec -u0 php ln -s /etc/php/7.2/mods-available/xdebug.ini /etc/php/7.2/cli/conf.d/20-xdebug.ini
 ```
 
-Than create `docker-compose.override.yml` inside root of your project
-```yml
-version: '3.6'
-services:
-  php:
-    build:
-      args:
-        - XDEBUG_HOST=172.16.32.59
+Than add ini-settings to `99-custom.ini`
+```ini
+xdebug.remote_host = 192.168.100.100
+xdebug.remote_enable = 1
 ```
-`XDEBUG_HOST` - host machine IP
+`xdebug.remote_host` - host machine IP
+
 ### Build and run container
 ```bash
 docker-compose build --force-rm
