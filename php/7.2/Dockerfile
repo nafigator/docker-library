@@ -3,7 +3,7 @@ FROM debian:stretch-slim
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Install packages needed for PHP
-RUN apt-get update && apt-get install -yq --no-install-recommends \
+RUN apt-get update && apt-get install -yqq --no-install-recommends \
     apt-transport-https \
     ca-certificates \
     gnupg \
@@ -15,7 +15,7 @@ RUN chmod 644 /etc/apt/trusted.gpg.d/php.gpg
 
 RUN echo "deb https://packages.sury.org/php/ stretch main" > /etc/apt/sources.list.d/php.list \
     && apt-get update \
-    && apt-get install -yq --no-install-recommends \
+    && apt-get install -yqq --no-install-recommends \
         php-common \
         php-memcached \
         php-xdebug \
@@ -46,7 +46,7 @@ RUN mkdir -p /var/www/.composer \
     && php /tmp/installer --no-ansi --install-dir=/usr/local/bin --filename=composer
 
 # Cleanup
-RUN apt-get purge -y --autoremove \
+RUN apt-get purge -yqq --autoremove \
         apt-transport-https \
     && apt-get clean \
     && rm -rf /var/tmp/* /tmp/* \
