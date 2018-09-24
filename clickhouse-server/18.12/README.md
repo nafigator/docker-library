@@ -12,10 +12,22 @@ version: '3.6'
 services:
   clickhouse-server:
     image: nafigat0r/clickhouse-server:18.12
+    networks:
+      - network
+    ports:
+      - 9888:9888
+networks:
+  network:
+    driver: bridge
 ```
 
 ### Build and run container
 ```bash
 docker-compose build --force-rm
 docker-compose up -d --remove-orphans
+```
+
+### Run client
+```bash
+docker-compose exec clickhouse-server clickhouse client --port 9888
 ```

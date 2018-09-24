@@ -31,7 +31,9 @@ RUN chown -R clickhouse /etc/clickhouse-server/ \
     # Install locale
     && sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
     && dpkg-reconfigure locales \
-    && update-locale LANG=en_US.UTF-8
+    && update-locale LANG=en_US.UTF-8 \
+    # Create homedir for client
+    && mkdir /nonexistent && chown -R clickhouse /nonexistent
 
 ENV LANG en_US.UTF-8
 
