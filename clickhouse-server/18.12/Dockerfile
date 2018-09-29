@@ -28,7 +28,6 @@ RUN apt-get update \
     && apt-get clean \
     # Install locale
     && sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
-    && ln -s /etc/locale.alias /usr/share/locale/locale.alias \
     && DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales \
     && DEBIAN_FRONTEND=noninteractive update-locale LANG=en_US.UTF-8 \
     # Create homedir for client
