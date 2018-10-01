@@ -47,7 +47,6 @@ main() {
             local result="$?"
 
             for i in {30..0}; do
-                echo "DEBUG: \$i: $i"
                 clickhouse client "$(port)" --query="SHOW DATABASES" &> /dev/null
                 result="$?"
 
