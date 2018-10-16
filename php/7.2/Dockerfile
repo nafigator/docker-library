@@ -7,7 +7,8 @@ RUN apt-get update && apt-get install -yqq --no-install-recommends \
     apt-transport-https \
     ca-certificates \
     gnupg \
-    locales
+    locales \
+    openssh-client
 
 # Keys for PHP installation
 ADD https://packages.sury.org/php/apt.gpg /etc/apt/trusted.gpg.d/php.gpg
