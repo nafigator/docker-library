@@ -4,35 +4,35 @@ ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE 1
 
 # Install packages needed for ClickHouse
 RUN apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
-        apt-transport-https \
-        ca-certificates \
-        locales \
-        gnupg \
-        wget \
-    && wget --quiet -O - https://repo.yandex.ru/clickhouse/CLICKHOUSE-KEY.GPG | apt-key add - \
-    && echo "deb http://repo.yandex.ru/clickhouse/deb/stable/ main/" > /etc/apt/sources.list.d/clickhouse.list \
-    && apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
-        clickhouse-server=18.12.17 \
-        clickhouse-common-static=18.12.17 \
-    && chown -R clickhouse /etc/clickhouse-server/ \
-    # Cleanup
-    && DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --autoremove \
-        gnupg \
-        wget \
-    && rm -rf /var/tmp/* /tmp/* \
-        /var/lib/apt/lists/* \
-        /var/log/apt/* \
-        /var/cache/debconf \
-    && apt-get clean \
-    # Install locale
-    && sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
-    && DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales \
-    && DEBIAN_FRONTEND=noninteractive update-locale LANG=en_US.UTF-8 \
-    # Create homedir for client
-    && mkdir /nonexistent /docker-entrypoint-initdb.d \
-    && chown -R clickhouse /nonexistent /docker-entrypoint-initdb.d
+	&& DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
+		apt-transport-https \
+		ca-certificates \
+		locales \
+		gnupg \
+		wget \
+	&& wget --quiet -O - https://repo.yandex.ru/clickhouse/CLICKHOUSE-KEY.GPG | apt-key add - \
+	&& echo "deb http://repo.yandex.ru/clickhouse/deb/stable/ main/" > /etc/apt/sources.list.d/clickhouse.list \
+	&& apt-get update \
+	&& DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
+		clickhouse-server=18.12.17 \
+		clickhouse-common-static=18.12.17 \
+	&& chown -R clickhouse /etc/clickhouse-server/ \
+	# Cleanup
+	&& DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --autoremove \
+		gnupg \
+		wget \
+	&& rm -rf /var/tmp/* /tmp/* \
+		/var/lib/apt/lists/* \
+		/var/log/apt/* \
+		/var/cache/debconf \
+	&& apt-get clean \
+	# Install locale
+	&& sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
+	&& DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales \
+	&& DEBIAN_FRONTEND=noninteractive update-locale LANG=en_US.UTF-8 \
+	# Create homedir for client
+	&& mkdir /nonexistent /docker-entrypoint-initdb.d \
+	&& chown -R clickhouse /nonexistent /docker-entrypoint-initdb.d
 
 ENV LANG en_US.UTF-8
 

@@ -11,15 +11,15 @@ process_init_file() {
 				  clickhouse client "$(port)" "$(database)" --query="$(cat "$file")"
 				  echo;;
 		*.sql.gz) echo "$0: running $file"
-		          clickhouse client "$(port)" "$(database)" --query="$(gunzip -c "$file")"
+				  clickhouse client "$(port)" "$(database)" --query="$(gunzip -c "$file")"
 				  echo;;
 		# insert data
 		*.csv)    echo "$0: running $file"
-		          cat "$file" | clickhouse client "$(port)" "$(database)" --query="INSERT INTO test FORMAT CSV"
-		          echo;;
+				  cat "$file" | clickhouse client "$(port)" "$(database)" --query="INSERT INTO test FORMAT CSV"
+				  echo;;
 		*.csv.gz) echo "$0: running $file"
-		          gunzip -c "$file" | clickhouse client "$(port)" "$(database)" --query="INSERT INTO test FORMAT CSV"
-		          echo;;
+				  gunzip -c "$file" | clickhouse client "$(port)" "$(database)" --query="INSERT INTO test FORMAT CSV"
+				  echo;;
 		*)        echo "$0: ignoring $file";;
 	esac
 	echo
@@ -40,44 +40,44 @@ port() {
 }
 
 main() {
-    if [ "$1" = "/usr/bin/clickhouse-server" ]; then
-        if [ ! -z ${DATABASE_NAME} ]; then
-            "$@" &
-            local readonly pid="$!"
-            local result="$?"
+	if [ "$1" = "/usr/bin/clickhouse-server" ]; then
+		if [ ! -z ${DATABASE_NAME} ]; then
+			"$@" &
+			local readonly pid="$!"
+			local result="$?"
 
-            for i in {30..0}; do
-                clickhouse client "$(port)" --query="SHOW DATABASES" &> /dev/null
-                result="$?"
+			for i in {30..0}; do
+				clickhouse client "$(port)" --query="SHOW DATABASES" &> /dev/null
+				result="$?"
 
-                if [ ${result} = "0" ]; then
-                    break
-                fi
+				if [ ${result} = "0" ]; then
+					break
+				fi
 
-                sleep 1
-            done
+				sleep 1
+			done
 
-            if [ "$i" = 0 ]; then
-                echo >&2 'Clickhouse init process failed.'
-                exit 1
-            fi
+			if [ "$i" = 0 ]; then
+				echo >&2 'Clickhouse init process failed.'
+				exit 1
+			fi
 
-            clickhouse client "$(port)" --query="CREATE DATABASE IF NOT EXISTS $DATABASE_NAME"
+			clickhouse client "$(port)" --query="CREATE DATABASE IF NOT EXISTS $DATABASE_NAME"
 
-            for file in /docker-entrypoint-initdb.d/*; do
-                process_init_file "$file"
-            done
+			for file in /docker-entrypoint-initdb.d/*; do
+				process_init_file "$file"
+			done
 
-            if ! kill -s TERM "$pid" || ! wait "$pid"; then
-                echo >&2 'Clickhouse init process failed.'
-                exit 1
-            fi
+			if ! kill -s TERM "$pid" || ! wait "$pid"; then
+				echo >&2 'Clickhouse init process failed.'
+				exit 1
+			fi
 
-            export DATABASE_NAME=
-        fi
-    fi
+			export DATABASE_NAME=
+		fi
+	fi
 
-    exec "$@"
+	exec "$@"
 }
 
 main "$@"

@@ -67,7 +67,7 @@ xdebug.remote_enable = 1
 
 ### Build and run container
 ```bash
-docker-compose build --force-rm
+docker-compose build --force-rm --no-cache --pull
 docker-compose up -d --remove-orphans
 ```
 ### Extending PHP configuration
