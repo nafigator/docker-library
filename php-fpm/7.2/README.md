@@ -58,7 +58,7 @@ If you want to enable Xdebug:
 docker-compose exec -u0 php ln -s /etc/php/7.2/mods-available/xdebug.ini /etc/php/7.2/fpm/conf.d/20-xdebug.ini
 ```
 
-Than add ini-settings to `99-custom.ini`
+Than add ini-settings to `override.ini`
 ```ini
 xdebug.remote_host = 192.168.100.100
 xdebug.remote_enable = 1
