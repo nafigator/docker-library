@@ -7,8 +7,7 @@ RUN apt-get update && apt-get install -yqq --no-install-recommends \
     apt-transport-https \
     ca-certificates \
     gnupg \
-    locales \
-    openssh-client
+    locales
 
 # Keys for PHP installation
 ADD https://packages.sury.org/php/apt.gpg /etc/apt/trusted.gpg.d/php.gpg
@@ -18,10 +17,10 @@ RUN echo "deb https://packages.sury.org/php/ stretch main" > /etc/apt/sources.li
     && apt-get update \
     && apt-get install -yqq --no-install-recommends \
         php-common \
+        php-http \
         php-memcached \
         php-xdebug \
         php7.2-bcmath \
-        php7.2-cli \
         php7.2-curl \
         php7.2-fpm \
         php7.2-gd \
@@ -37,7 +36,7 @@ RUN echo "deb https://packages.sury.org/php/ stretch main" > /etc/apt/sources.li
     && mkdir -p /run/php
 
 # Cleanup
-RUN apt-get purge -yqq --autoremove apt-transport-https \
+RUN apt-get purge -yqq --autoremove apt-transport-https gnupg \
     && apt-get clean \
     && rm -rf /var/tmp/* /tmp/* \
         /var/lib/apt/lists/* \
