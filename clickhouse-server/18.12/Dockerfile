@@ -34,11 +34,6 @@ RUN apt-get update \
 	&& mkdir /nonexistent /docker-entrypoint-initdb.d \
 	&& chown -R clickhouse /nonexistent /docker-entrypoint-initdb.d
 
-# Install locale
-RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
-	&& DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales \
-	&& update-locale LANG=en_US.UTF-8
-
 ENV LANG en_US.UTF-8
 
 COPY docker-entrypoint.sh /usr/local/bin/
