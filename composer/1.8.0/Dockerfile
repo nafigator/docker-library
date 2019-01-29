@@ -1,12 +1,10 @@
-FROM nafigat0r:php-cli:7.2
+FROM nafigat0r/php-cli:7.2
 
 # Install packages needed for PHP
-RUN apt-get update
+RUN apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
 		apt-transport-https \
-		ca-certificates \
 		gnupg \
-		locales \
 		openssh-client
 
 # Keys for PHP installation
@@ -47,7 +45,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --autoremove \
 	&& apt-get clean \
 	&& rm -rf /var/tmp/* /tmp/* \
 		/var/lib/apt/lists/* \
-		/var/log/apt/* \
+		/var/log/apt/*
 
 # Install locale
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \

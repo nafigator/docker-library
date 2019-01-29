@@ -18,6 +18,7 @@ check_command() {
     "global" \
     "help" \
     "home" \
+    "i" \
     "info" \
     "init" \
     "install" \
@@ -34,6 +35,7 @@ check_command() {
     "show" \
     "status" \
     "suggests" \
+    "u" \
     "update" \
     "upgrade" \
     "validate" \
