@@ -16,8 +16,7 @@ RUN chmod 644 /etc/apt/trusted.gpg.d/php.gpg
 RUN echo "deb https://packages.sury.org/php/ stretch main" > /etc/apt/sources.list.d/php.list \
 	&& apt-get update \
 	&& apt-get install -yqq --no-install-recommends \
-		php7.2-fpm \
-		php7.2-cli- \
+		php7.2-cli \
 		php7.2-bcmath \
 		php7.2-curl \
 		php7.2-gd \
@@ -33,7 +32,6 @@ RUN echo "deb https://packages.sury.org/php/ stretch main" > /etc/apt/sources.li
 	&& apt-get install -yqq --no-install-recommends \
 		php-memcached \
 		php-xdebug
-	&& mkdir -p /run/php
 
 # Cleanup
 RUN apt-get purge -yqq --autoremove apt-transport-https gnupg \
@@ -41,11 +39,7 @@ RUN apt-get purge -yqq --autoremove apt-transport-https gnupg \
 	&& rm -rf /var/tmp/* /tmp/* \
 		/var/lib/apt/lists/* \
 		/var/log/apt/* \
-		/etc/php/7.2/fpm/conf.d/20-xdebug.ini
-
-# Copy configs
-COPY ./php-fpm.conf /etc/php/7.2/fpm/
-COPY ./pool.d /etc/php/7.2/fpm/pool.d/
+		/etc/php/7.2/cli/conf.d/20-xdebug.ini
 
 # Install locale
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
@@ -54,9 +48,11 @@ RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
 
 ENV LANG en_US.UTF-8
 
-# Launch fpm
-CMD ["php-fpm7.2"]
+COPY docker-entrypoint.sh /usr/local/bin/
 
-EXPOSE 9000
+ENTRYPOINT ["docker-entrypoint.sh"]
+
+# Launch php
+CMD ["php", "-a"]
 
 WORKDIR /var/www/html/
