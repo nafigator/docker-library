@@ -47,6 +47,14 @@ services:
     restart: unless-stopped
 ```
 
+### Manual run
+```bash
+docker run --user $(id -u):$(id -g) \
+	--volume /etc/passwd:/etc/passwd:ro \
+	--volume /etc/group:/etc/group:ro \
+	--rm -t nafigat0r/composer:1.8.0 --no-ansi
+```
+
 ### Build and run container
 ```bash
 docker-compose build --force-rm --no-cache --pull
@@ -56,11 +64,11 @@ docker-compose up -d --remove-orphans
 ### Composer
 Outside container usage:
 ```bash
-docker-compose exec php composer diagnose
+docker-compose exec composer diagnose
 ```
 Inside container usage:
 ```bash
-docker-compose exec php bash
+docker-compose exec composer bash
 composer diagnose
 ```
 
