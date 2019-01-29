@@ -1,7 +1,7 @@
 FROM debian:stretch-slim
 
 # Install packages needed for PHP
-RUN apt-get update
+RUN apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
 		apt-transport-https \
 		ca-certificates \
