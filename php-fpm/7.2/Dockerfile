@@ -17,7 +17,6 @@ RUN echo "deb https://packages.sury.org/php/ stretch main" > /etc/apt/sources.li
 	&& apt-get update \
 	&& apt-get install -yqq --no-install-recommends \
 		php7.2-fpm \
-		php7.2-cli- \
 		php7.2-bcmath \
 		php7.2-curl \
 		php7.2-gd \
