@@ -32,7 +32,7 @@ RUN echo "deb https://packages.sury.org/php/ stretch main" > /etc/apt/sources.li
 		php7.2-zip \
 	&& apt-get install -yqq --no-install-recommends \
 		php-memcached \
-		php-xdebug
+		php-xdebug \
 	&& mkdir -p /run/php
 
 # Cleanup
