@@ -1,7 +1,5 @@
 FROM debian:stretch-slim
 
-ARG DEBIAN_FRONTEND=noninteractive
-
 # Install packages needed for PHP
 RUN apt-get update && apt-get install -yqq --no-install-recommends \
 	apt-transport-https \
@@ -15,7 +13,7 @@ RUN chmod 644 /etc/apt/trusted.gpg.d/php.gpg
 
 RUN echo "deb https://packages.sury.org/php/ stretch main" > /etc/apt/sources.list.d/php.list \
 	&& apt-get update \
-	&& apt-get install -yqq --no-install-recommends \
+	&& DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
 		php7.2-fpm \
 		php7.2-bcmath \
 		php7.2-curl \
@@ -29,13 +27,13 @@ RUN echo "deb https://packages.sury.org/php/ stretch main" > /etc/apt/sources.li
 		php7.2-soap \
 		php7.2-xml \
 		php7.2-zip \
-	&& apt-get install -yqq --no-install-recommends \
+	&& DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
 		php-memcached \
 		php-xdebug \
 	&& mkdir -p /run/php
 
 # Cleanup
-RUN apt-get purge -yqq --autoremove apt-transport-https gnupg \
+RUN DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --autoremove apt-transport-https gnupg \
 	&& apt-get clean \
 	&& rm -rf /var/tmp/* /tmp/* \
 		/var/lib/apt/lists/* \
@@ -48,7 +46,7 @@ COPY ./pool.d /etc/php/7.2/fpm/pool.d/
 
 # Install locale
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
-	&& dpkg-reconfigure locales \
+	&& DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales \
 	&& update-locale LANG=en_US.UTF-8
 
 ENV LANG en_US.UTF-8
