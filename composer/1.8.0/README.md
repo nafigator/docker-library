@@ -2,29 +2,6 @@
 -	[`7.2` (*7.2/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/composer/1.8.0/Dockerfile)
 
 # How to use this image
-### Create a `Dockerfile`
-
-Suggested path for `Dockerfile` - `build/php`
-```dockerfile
-FROM nafigat0r/php-cli:7.2
-
-ARG USER_NAME
-
-RUN chown -R ${USER_NAME}:${USER_NAME} /run/php /var/www/.composer
-
-# Change locale
-#RUN sed -i -e "s/# ru_RU.UTF-8 UTF-8/ru_RU.UTF-8 UTF-8/" /etc/locale.gen \
-#    && DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales \
-#    && update-locale LANG=ru_RU.UTF-8
-
-# ENV LANG ru_RU.UTF-8
-
-# Change the docker default timezone from UTC to MSK
-#RUN echo "Europe/Moscow" > /etc/timezone \
-#    && DEBIAN_FRONTEND=noninteractive dpkg-reconfigure tzdata
-
-USER ${USER_NAME}
-```
 
 ### Create a `docker-compose.yml`
 
