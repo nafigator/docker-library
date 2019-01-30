@@ -37,13 +37,12 @@ services:
       - SSH_AUTH_SOCK
     build:
       context: .docker/composer
-      args:
-        - USER_NAME=${USER}
     volumes:
       - ./:/var/www/html/
       - /etc/passwd:/etc/passwd:ro
       - /etc/group:/etc/group:ro
-      - ${SSH_AUTH_SOCK}:${SSH_AUTH_SOCK}
+      - ${SSH_AUTH_SOCK}:/ssh-auth.sock
+    user: ${UID}:${UID}
     restart: unless-stopped
 ```
 
@@ -52,6 +51,8 @@ services:
 docker run --user $(id -u):$(id -g) \
 	--volume /etc/passwd:/etc/passwd:ro \
 	--volume /etc/group:/etc/group:ro \
+	--volume $SSH_AUTH_SOCK:/ssh-auth.sock \
+	--env SSH_AUTH_SOCK=/ssh-auth.sock \
 	--rm -t nafigat0r/composer:1.8.0 --no-ansi
 ```
 
