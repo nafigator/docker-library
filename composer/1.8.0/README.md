@@ -10,11 +10,10 @@ Suggested path for `docker-compose.yml` root of your project.
 version: '3.6'
 services:
   composer:
+    image: nafigat0r/composer:1.8.0
     environment:
       - SSH_AUTH_SOCK
       - HOME=/var/www
-    build:
-      context: .docker/composer
     volumes:
       - ./:/var/www/html/
       - /etc/passwd:/etc/passwd:ro
