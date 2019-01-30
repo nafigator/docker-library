@@ -30,7 +30,8 @@ RUN echo "deb https://packages.sury.org/php/ stretch main" > /etc/apt/sources.li
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
 		php-memcached \
 		php-xdebug \
-	&& mkdir -p /run/php
+	&& mkdir -p /run/php \
+	&& chmod 777 /run/php
 
 # Cleanup
 RUN DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --autoremove apt-transport-https gnupg \
