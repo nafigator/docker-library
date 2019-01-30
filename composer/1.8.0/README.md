@@ -32,7 +32,8 @@ docker run --user $(id -u):$(id -g) \
 	--volume $SSH_AUTH_SOCK:/ssh-auth.sock \
 	--env SSH_AUTH_SOCK=/ssh-auth.sock \
 	--env HOME=/var/www \
-	--rm -t nafigat0r/composer:1.8.0 --no-ansi
+	--rm -t nafigat0r/composer:1.8.0 \
+	diagnose
 ```
 
 ### Build and run container

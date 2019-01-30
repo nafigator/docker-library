@@ -1,3 +1,6 @@
+# DEPRECATED
+Look at [PHP-FPM][PHP FPM] or [PHP-CLI][PHP CLI] images.
+
 # Supported tags and respective `Dockerfile` links
 -	[`7.2` (*7.2/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/php-slim/7.2/Dockerfile)
 
@@ -81,3 +84,6 @@ Create new volume in `docker-compose.yml` like this:
     volumes:
       - ./custom.ini:/etc/php/7.2/fpm/conf.d/99-custom.ini
 ```
+
+  [PHP CLI]: https://hub.docker.com/r/nafigat0r/php-cli
+  [PHP FPM]: https://hub.docker.com/r/nafigat0r/php-fpm
