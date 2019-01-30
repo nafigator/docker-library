@@ -37,7 +37,7 @@ ADD https://composer.github.io/releases.pub /var/www/.composer/keys.tags.pub
 
 # Install Composer
 RUN mkdir -p /var/www/.composer \
-	&& chmod 777 /var/www/.composer \
+	&& chmod -R 777 /var/www/.composer \
 	&& php /tmp/installer --no-ansi --install-dir=/usr/local/bin --filename=composer --version=1.8.0
 
 # Cleanup
