@@ -9,8 +9,8 @@ RUN apt-get update \
 		ca-certificates \
 		locales \
 		gnupg \
-		wget \
-	&& wget --quiet -O - https://repo.yandex.ru/clickhouse/CLICKHOUSE-KEY.GPG | apt-key add - \
+		curl \
+	&& curl -sL https://repo.yandex.ru/clickhouse/CLICKHOUSE-KEY.GPG | apt-key add - \
 	&& echo "deb http://repo.yandex.ru/clickhouse/deb/stable/ main/" > /etc/apt/sources.list.d/clickhouse.list \
 	&& apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
@@ -20,7 +20,7 @@ RUN apt-get update \
 	# Cleanup
 	&& DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --autoremove apt-transport-https \
 		gnupg \
-		wget \
+		curl \
 	&& apt-get clean \
 	&& rm -rf /var/tmp/* /tmp/* \
 		/var/lib/apt/lists/* \
