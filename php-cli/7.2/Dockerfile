@@ -2,8 +2,10 @@ FROM debian:stretch-slim
 
 # Keys for PHP installation
 ADD https://packages.sury.org/php/apt.gpg /etc/apt/trusted.gpg.d/php.gpg
+ADD https://raw.githubusercontent.com/eficode/wait-for/master/wait-for /usr/local/bin/wait-for
 
 RUN chmod 644 /etc/apt/trusted.gpg.d/php.gpg \
+    && chmod 755 /usr/local/bin/wait-for \
 	# Install packages needed for PHP
 	&& apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
