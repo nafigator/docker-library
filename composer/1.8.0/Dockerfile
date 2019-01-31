@@ -10,8 +10,6 @@ RUN chmod 644 /etc/apt/trusted.gpg.d/php.gpg \
 	# Install packages needed for PHP
 	&& apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
-		apt-transport-https \
-		gnupg \
 		openssh-client \
 	&& echo "deb https://packages.sury.org/php/ stretch main" > /etc/apt/sources.list.d/php.list \
 	&& apt-get update \
