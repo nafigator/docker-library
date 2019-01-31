@@ -37,6 +37,10 @@ RUN apt-get update \
 
 ENV LANG en_US.UTF-8
 
+COPY docker-entrypoint.sh /usr/local/bin/
+
+ENTRYPOINT ["docker-entrypoint.sh"]
+
 # Launch node
 CMD ["node"]
 
