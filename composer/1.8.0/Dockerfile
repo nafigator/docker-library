@@ -11,16 +11,13 @@ RUN chmod -R 777 /var/www/.composer \
 	&& apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
 		openssh-client \
-	&& echo "deb https://packages.sury.org/php/ stretch main" > /etc/apt/sources.list.d/php.list \
-	&& apt-get update \
-	&& DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
+		gnupg \
 		unzip \
 		git
 
 # Install Composer
 RUN php /tmp/installer --no-ansi --install-dir=/usr/local/bin --filename=composer --version=1.8.0 \
 	# Cleanup
-	&& DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --autoremove apt-transport-https \
 	&& apt-get clean \
 	&& rm -rf /var/tmp/* /tmp/* \
 		/var/lib/apt/lists/* \
