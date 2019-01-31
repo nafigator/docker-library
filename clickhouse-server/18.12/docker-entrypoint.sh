@@ -75,6 +75,8 @@ main() {
 
 			export DATABASE_NAME=
 		fi
+	else
+		set -- clickhouse "$@"
 	fi
 
 	exec "$@"
