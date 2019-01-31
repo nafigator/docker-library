@@ -11,6 +11,7 @@ RUN chmod 644 /etc/apt/trusted.gpg.d/php.gpg \
 		ca-certificates \
 		gnupg \
 		locales \
+		netcat \
 	&& echo "deb https://packages.sury.org/php/ stretch main" > /etc/apt/sources.list.d/php.list \
 	&& apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
