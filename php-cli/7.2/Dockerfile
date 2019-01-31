@@ -1,17 +1,16 @@
 FROM debian:stretch-slim
 
-# Install packages needed for PHP
-RUN apt-get update && apt-get install -yqq --no-install-recommends \
-	apt-transport-https \
-	ca-certificates \
-	gnupg \
-	locales
-
 # Keys for PHP installation
 ADD https://packages.sury.org/php/apt.gpg /etc/apt/trusted.gpg.d/php.gpg
-RUN chmod 644 /etc/apt/trusted.gpg.d/php.gpg
 
-RUN echo "deb https://packages.sury.org/php/ stretch main" > /etc/apt/sources.list.d/php.list \
+RUN chmod 644 /etc/apt/trusted.gpg.d/php.gpg \
+	# Install packages needed for PHP
+	&& apt-get update && apt-get install -yqq --no-install-recommends \
+		apt-transport-https \
+		ca-certificates \
+		gnupg \
+		locales \
+	&& echo "deb https://packages.sury.org/php/ stretch main" > /etc/apt/sources.list.d/php.list \
 	&& apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
 		php7.2-cli \
@@ -29,17 +28,20 @@ RUN echo "deb https://packages.sury.org/php/ stretch main" > /etc/apt/sources.li
 		php7.2-zip \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
 		php-memcached \
-		php-xdebug
-
-# Cleanup
-RUN apt-get clean \
+		php-xdebug \
+	# Cleanup
+	&& DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --autoremove \
+		gnupg \
+		apt-transport-https \
+	&& apt-get clean \
 	&& rm -rf /var/tmp/* /tmp/* \
 		/var/lib/apt/lists/* \
 		/var/log/apt/* \
-		/etc/php/7.2/cli/conf.d/20-xdebug.ini
-
-# Install locale
-RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
+		/var/cache/debconf \
+		/var/cache/apt/archives/*
+		/etc/php/7.2/cli/conf.d/20-xdebug.ini \
+	# Install locale
+	&& sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
 	&& DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales \
 	&& update-locale LANG=en_US.UTF-8
 
