@@ -18,7 +18,7 @@ RUN apt-get update \
 		clickhouse-common-static=18.12.17 \
 	&& chown -R clickhouse /etc/clickhouse-server/ \
 	# Cleanup
-	&& DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --autoremove \
+	&& DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --autoremove apt-transport-https \
 		gnupg \
 		wget \
 	&& apt-get clean \
