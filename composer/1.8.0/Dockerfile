@@ -1,12 +1,12 @@
 FROM nafigat0r/php-cli:7.2
 
-# Keys for PHP installation
-ADD https://packages.sury.org/php/apt.gpg /etc/apt/trusted.gpg.d/php.gpg
+# Copy composer installer
+ADD https://getcomposer.org/installer /tmp/installer
+ADD https://composer.github.io/snapshots.pub /var/www/.composer/keys.dev.pub
+ADD https://composer.github.io/releases.pub /var/www/.composer/keys.tags.pub
 
-RUN chmod 644 /etc/apt/trusted.gpg.d/php.gpg \
-	# Prepare composer dir
-	&& mkdir -p /var/www/.composer \
-	&& chmod -R 777 /var/www/.composer \
+# Prepare composer dir
+RUN chmod -R 777 /var/www/.composer \
 	# Install packages needed for PHP
 	&& apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
@@ -16,11 +16,6 @@ RUN chmod 644 /etc/apt/trusted.gpg.d/php.gpg \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
 		unzip \
 		git
-
-# Copy composer installer
-ADD https://getcomposer.org/installer /tmp/installer
-ADD https://composer.github.io/snapshots.pub /var/www/.composer/keys.dev.pub
-ADD https://composer.github.io/releases.pub /var/www/.composer/keys.tags.pub
 
 # Install Composer
 RUN php /tmp/installer --no-ansi --install-dir=/usr/local/bin --filename=composer --version=1.8.0 \

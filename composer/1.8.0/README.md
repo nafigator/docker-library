@@ -1,5 +1,5 @@
 # Supported tags and respective `Dockerfile` links
--	[`7.2` (*7.2/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/composer/1.8.0/Dockerfile)
+-	[`1.8.0` (*1.8.0/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/composer/1.8.0/Dockerfile)
 
 # How to use this image
 
