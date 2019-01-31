@@ -1,17 +1,16 @@
 FROM debian:stretch-slim
 
-# Install packages needed for PHP
-RUN apt-get update && apt-get install -yqq --no-install-recommends \
-	apt-transport-https \
-	ca-certificates \
-	gnupg \
-	locales
-
 # Keys for PHP installation
 ADD https://packages.sury.org/php/apt.gpg /etc/apt/trusted.gpg.d/php.gpg
-RUN chmod 644 /etc/apt/trusted.gpg.d/php.gpg
 
-RUN echo "deb https://packages.sury.org/php/ stretch main" > /etc/apt/sources.list.d/php.list \
+RUN chmod 644 /etc/apt/trusted.gpg.d/php.gpg \
+	# Install packages needed for PHP
+	&& apt-get update && apt-get install -yqq --no-install-recommends \
+		apt-transport-https \
+		ca-certificates \
+		gnupg \
+		locales \
+	&& echo "deb https://packages.sury.org/php/ stretch main" > /etc/apt/sources.list.d/php.list \
 	&& apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
 		php7.2-fpm \
@@ -31,26 +30,28 @@ RUN echo "deb https://packages.sury.org/php/ stretch main" > /etc/apt/sources.li
 		php-memcached \
 		php-xdebug \
 	&& mkdir -p /run/php \
-	&& chmod 777 /run/php
-
-# Cleanup
-RUN DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --autoremove apt-transport-https gnupg \
+	&& chmod 777 /run/php \
+	# Cleanup
+	&& DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --autoremove \
+		gnupg \
+		apt-transport-https \
 	&& apt-get clean \
 	&& rm -rf /var/tmp/* /tmp/* \
 		/var/lib/apt/lists/* \
 		/var/log/apt/* \
-		/etc/php/7.2/fpm/conf.d/20-xdebug.ini
-
-# Copy configs
-COPY ./php-fpm.conf /etc/php/7.2/fpm/
-COPY ./pool.d /etc/php/7.2/fpm/pool.d/
-
-# Install locale
-RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
+		/var/cache/debconf \
+		/var/cache/apt/archives/* \
+		/etc/php/7.2/fpm/conf.d/20-xdebug.ini \
+	# Install locale
+	&& sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
 	&& DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales \
 	&& update-locale LANG=en_US.UTF-8
 
 ENV LANG en_US.UTF-8
+
+# Copy configs
+COPY ./php-fpm.conf /etc/php/7.2/fpm/
+COPY ./pool.d /etc/php/7.2/fpm/pool.d/
 
 # Launch fpm
 CMD ["php-fpm7.2"]
