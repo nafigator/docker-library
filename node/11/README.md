@@ -1,5 +1,6 @@
 # Supported tags and respective `Dockerfile` links
 -	[`11` (*11/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/node/11/Dockerfile)
+-	[`10` (*10/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/node/10/Dockerfile)
 
 # How to use this image
 ### Create a `docker-compose.yml`
