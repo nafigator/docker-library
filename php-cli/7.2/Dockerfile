@@ -5,7 +5,8 @@ ADD https://packages.sury.org/php/apt.gpg /etc/apt/trusted.gpg.d/php.gpg
 
 RUN chmod 644 /etc/apt/trusted.gpg.d/php.gpg \
 	# Install packages needed for PHP
-	&& apt-get update && apt-get install -yqq --no-install-recommends \
+	&& apt-get update \
+	&& DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
 		apt-transport-https \
 		ca-certificates \
 		gnupg \
