@@ -14,6 +14,7 @@ RUN chmod 644 /etc/apt/trusted.gpg.d/php.gpg
 RUN echo "deb https://packages.sury.org/php/ stretch main" > /etc/apt/sources.list.d/php.list \
 	&& apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
+		unzip \
 		php7.2-cli \
 		php7.2-bcmath \
 		php7.2-curl \
@@ -41,10 +42,10 @@ RUN mkdir -p /var/www/.composer \
 	&& php /tmp/installer --no-ansi --install-dir=/usr/local/bin --filename=composer --version=1.8.0
 
 # Cleanup
-RUN DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --autoremove \
-		apt-transport-https \
+RUN DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --autoremove apt-transport-https \
 	&& apt-get clean \
 	&& rm -rf /var/tmp/* /tmp/* \
+		/var/cache/apt/archives/* \
 		/var/lib/apt/lists/* \
 		/var/log/apt/*
 
