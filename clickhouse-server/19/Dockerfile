@@ -21,11 +21,12 @@ RUN apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --autoremove \
 		gnupg \
 		wget \
+	&& apt-get clean \
 	&& rm -rf /var/tmp/* /tmp/* \
 		/var/lib/apt/lists/* \
 		/var/log/apt/* \
 		/var/cache/debconf \
-	&& apt-get clean \
+		/var/cache/apt/archives/* \
 	# Install locale
 	&& sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
 	&& DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales \
