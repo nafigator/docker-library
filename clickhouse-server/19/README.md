@@ -1,5 +1,6 @@
 # Supported tags and respective `Dockerfile` links
 -	[`19` (*19/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/clickhouse-server/19/Dockerfile)
+-	[`18.12` (*18.12/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/clickhouse-server/18.12/Dockerfile)
 
 ### Debian-based container for clickhouse listening 9888 port
 
@@ -35,7 +36,7 @@ Put your sql-files to `initdb.d` dir.  Available formats:
 
 For `docker logs` usage change clickhouse logs to:
 
-```xml
+```text
 <log>/proc/self/fd/2</log>
 <errorlog>/proc/self/fd/2</errorlog>
 ```
@@ -48,5 +49,5 @@ docker-compose up -d --remove-orphans
 
 ### Run client
 ```bash
-docker-compose exec clickhouse-server clickhouse client --port 9888
+docker run --user $(id -u):$(id -g) --rm -ti nafigat0r/clickhouse-server:19 client --port 9888
 ```
