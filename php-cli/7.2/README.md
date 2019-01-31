@@ -61,3 +61,9 @@ ENV LANG ru_RU.UTF-8
 RUN echo "Europe/Moscow" > /etc/timezone \
     && DEBIAN_FRONTEND=noninteractive dpkg-reconfigure tzdata
 ```
+
+# Waiting for other container
+
+```bash
+command: wait-for rabbitmq:5432 -- script.php
+```
