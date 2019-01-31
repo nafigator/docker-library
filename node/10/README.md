@@ -24,6 +24,6 @@ docker-compose up -d --remove-orphans
 
 ### Run container
 ```bash
-docker run --rm -ti nafigat0r/node:10 --version
-docker run --rm -ti nafigat0r/node:10 yarn --version
+docker run --user $(id -u):$(id -g) --rm -ti nafigat0r/node:10 --version
+docker run --user $(id -u):$(id -g) --rm -ti nafigat0r/node:10 yarn --version
 ```
