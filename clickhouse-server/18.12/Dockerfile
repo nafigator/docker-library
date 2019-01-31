@@ -31,7 +31,7 @@ RUN apt-get update \
 	&& sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
 	&& DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales \
 	&& DEBIAN_FRONTEND=noninteractive update-locale LANG=en_US.UTF-8 \
-	# Create homedir for client
+	# Create dirs for client
 	&& mkdir /nonexistent /docker-entrypoint-initdb.d \
 	&& chown -R clickhouse /nonexistent /docker-entrypoint-initdb.d
 
