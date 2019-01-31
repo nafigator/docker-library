@@ -30,12 +30,12 @@ RUN chmod 644 /etc/apt/trusted.gpg.d/php.gpg \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
 		php-memcached \
 		php-xdebug \
-	&& mkdir -p /run/php \
-	&& chmod 777 /run/php \
 	# Cleanup
 	&& DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --autoremove \
 		gnupg \
 		apt-transport-https \
+	&& rm /etc/apt/sources.list.d/php.list \
+	&& apt-get update \
 	&& apt-get clean \
 	&& rm -rf /var/tmp/* /tmp/* \
 		/var/lib/apt/lists/* \
@@ -43,10 +43,13 @@ RUN chmod 644 /etc/apt/trusted.gpg.d/php.gpg \
 		/var/cache/debconf \
 		/var/cache/apt/archives/* \
 		/etc/php/7.2/fpm/conf.d/20-xdebug.ini \
+		/etc/apt/trusted.gpg.d/php.gpg \
 	# Install locale
 	&& sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
 	&& DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales \
-	&& update-locale LANG=en_US.UTF-8
+	&& update-locale LANG=en_US.UTF-8 \
+	&& mkdir -p /run/php \
+	&& chmod 777 /run/php
 
 ENV LANG en_US.UTF-8
 
