@@ -45,9 +45,10 @@ RUN mkdir -p /var/www/.composer \
 RUN DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --autoremove apt-transport-https \
 	&& apt-get clean \
 	&& rm -rf /var/tmp/* /tmp/* \
-		/var/cache/apt/archives/* \
 		/var/lib/apt/lists/* \
-		/var/log/apt/*
+		/var/log/apt/* \
+		/var/cache/debconf \
+		/var/cache/apt/archives/*
 
 # Install locale
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
