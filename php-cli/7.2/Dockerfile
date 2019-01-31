@@ -31,9 +31,6 @@ RUN chmod 644 /etc/apt/trusted.gpg.d/php.gpg \
 		php-memcached \
 		php-xdebug \
 	# Cleanup
-	&& DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --autoremove \
-		gnupg \
-		apt-transport-https \
 	&& apt-get clean \
 	&& rm -rf /var/tmp/* /tmp/* \
 		/var/lib/apt/lists/* \
