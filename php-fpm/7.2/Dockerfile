@@ -23,6 +23,7 @@ RUN chmod 644 /etc/apt/trusted.gpg.d/php.gpg \
 		php7.2-json \
 		php7.2-mbstring \
 		php7.2-mysql \
+		php7.2-sqlite3 \
 		php7.2-opcache \
 		php7.2-readline \
 		php7.2-soap \
