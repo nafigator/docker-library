@@ -2,6 +2,14 @@
 -	[`1.8.0` (*1.8.0/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/composer/1.8.0/Dockerfile)
 
 # How to use this image
+### Initialise UID
+```bash
+export UID
+```
+If you does not use bash-shell initialize `UID` variable with your current user ID. Example:
+```bash
+export UID=1000
+```
 
 ### Create a `docker-compose.yml`
 
