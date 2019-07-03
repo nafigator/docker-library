@@ -18,12 +18,6 @@ services:
     restart: unless-stopped
 ```
 
-### Xdebug setup (optional)
-If you want to enable Xdebug:
-```bash
-docker-compose exec -u0 php ln -s /etc/php/7.2/mods-available/xdebug.ini /etc/php/7.2/fpm/conf.d/20-xdebug.ini
-```
-
 Than add ini-settings to `override.ini`
 ```ini
 xdebug.remote_host = 192.168.100.100
