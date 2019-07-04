@@ -2,7 +2,7 @@ FROM debian:stretch-slim
 
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE 1
 
-# Node installation
+# Node installer download
 ADD https://deb.nodesource.com/setup_12.x /tmp/setup_12.x
 
 # Install packages needed for PHP
