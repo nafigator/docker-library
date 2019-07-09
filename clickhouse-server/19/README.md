@@ -15,14 +15,14 @@ services:
       image: nafigat0r/clickhouse-server:19
       environment:
         DATABASE_NAME: db_name
-        DATABASE_PORT: 9888
+        DATABASE_PORT: 9000
       networks:
         - network
       ports:
-        - 9888:9888
+        - 9000:9000
       # init sql-files and custom config
       volumes:
-        - ./clickhouse-server/19/config.xml:/etc/clickhouse-server/config.xml
+        - ./clickhouse-server/19/conf.d:/etc/clickhouse-server/conf.d:ro
         - ./clickhouse-server/19/initdb.d:/docker-entrypoint-initdb.d
 networks:
   network:
@@ -33,6 +33,8 @@ Put your sql-files to `initdb.d` dir.  Available formats:
 `*.sql.gz`
 `*.csv`
 `*.csv.gz`
+
+Put your custom config settings to `conf.d/overrides.xml` directory. 
 
 For `docker logs` usage change clickhouse logs to:
 
