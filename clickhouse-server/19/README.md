@@ -2,7 +2,7 @@
 -	[`19` (*19/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/clickhouse-server/19/Dockerfile)
 -	[`18.12` (*18.12/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/clickhouse-server/18.12/Dockerfile)
 
-### Debian-based container for clickhouse listening 9888 port
+### Debian-based container for clickhouse
 
 # How to use this image
 ### Create a `docker-compose.yml`
@@ -28,19 +28,27 @@ networks:
   network:
     driver: bridge
 ```
+### Add initial sql-files
 Put your sql-files to `initdb.d` dir.  Available formats:
 `*.sql`
 `*.sql.gz`
 `*.csv`
 `*.csv.gz`
+### Override config settings
+Put your custom config settings to `conf.d/overrides.xml` directory. Example:
+```xml
+<?xml version="1.0"?>
+<yandex>
+    <logger>
+        <!-- Possible levels: https://github.com/pocoproject/poco/blob/develop/Foundation/include/Poco/Logger.h#L105 -->
+        <level>information</level>
+        <log>/proc/self/fd/2</log>
+        <errorlog>/proc/self/fd/2</errorlog>
+    </logger>
+    <tcp_port>9888</tcp_port>
+    <listen_host>0.0.0.0</listen_host>
+</yandex>
 
-Put your custom config settings to `conf.d/overrides.xml` directory. 
-
-For `docker logs` usage change clickhouse logs to:
-
-```text
-<log>/proc/self/fd/2</log>
-<errorlog>/proc/self/fd/2</errorlog>
 ```
 
 ### Build and run container
