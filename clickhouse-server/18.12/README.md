@@ -15,30 +15,40 @@ services:
       image: nafigat0r/clickhouse-server:19
       environment:
         DATABASE_NAME: db_name
-        DATABASE_PORT: 9888
+        DATABASE_PORT: 9000
       networks:
         - network
       ports:
-        - 9888:9888
+        - 9000:9000
       # init sql-files and custom config
       volumes:
-        - ./clickhouse-server/19/config.xml:/etc/clickhouse-server/config.xml
+        - ./clickhouse-server/19/conf.d:/etc/clickhouse-server/conf.d:ro
         - ./clickhouse-server/19/initdb.d:/docker-entrypoint-initdb.d
 networks:
   network:
     driver: bridge
 ```
+### Add initial sql-files
 Put your sql-files to `initdb.d` dir.  Available formats:
 `*.sql`
 `*.sql.gz`
 `*.csv`
 `*.csv.gz`
+### Override config settings
+Put your custom config settings to `conf.d/overrides.xml` directory. Example:
+```xml
+<?xml version="1.0"?>
+<yandex>
+    <logger>
+        <!-- Possible levels: https://github.com/pocoproject/poco/blob/develop/Foundation/include/Poco/Logger.h#L105 -->
+        <level>information</level>
+        <log>/proc/self/fd/2</log>
+        <errorlog>/proc/self/fd/2</errorlog>
+    </logger>
+    <tcp_port>9888</tcp_port>
+    <listen_host>0.0.0.0</listen_host>
+</yandex>
 
-For `docker logs` usage change clickhouse logs to:
-
-```text
-<log>/proc/self/fd/2</log>
-<errorlog>/proc/self/fd/2</errorlog>
 ```
 
 ### Build and run container
