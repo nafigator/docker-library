@@ -2,7 +2,7 @@
 -	[`19` (*19/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/clickhouse-server/19/Dockerfile)
 -	[`18.12` (*18.12/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/clickhouse-server/18.12/Dockerfile)
 
-### Debian-based container for clickhouse listening 9888 port
+### Debian-based container for clickhouse
 
 # How to use this image
 ### Create a `docker-compose.yml`
