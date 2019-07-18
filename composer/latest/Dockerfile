@@ -1,4 +1,5 @@
 FROM nafigat0r/php-cli:7.2
+MAINTAINER Alexander Yancharuk <alex at itvault dot info>
 
 # Copy composer installer
 ADD https://getcomposer.org/installer /tmp/installer
