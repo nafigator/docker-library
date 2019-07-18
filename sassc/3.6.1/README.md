@@ -1,5 +1,6 @@
 # Supported tags and respective `Dockerfile` links
 -	[`3.6.1` (*3.6.1/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/sassc/3.6.1/Dockerfile)
+-	[`latest` (*latest/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/sassc/latest/Dockerfile)
 
 # How to use this image
 ### Initialise UID
