@@ -22,7 +22,7 @@ services:
   node:
     image: nafigat0r/node:10
     user: ${UID}:${UID}
-    command: script.js
+    command: ["node", "script.js"]
     volumes:
       - ./:/var/www/html/
     restart: unless-stopped
