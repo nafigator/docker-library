@@ -27,12 +27,12 @@ services:
       - ./:/var/www/html/
     restart: unless-stopped
 ```
-### Build container
+### Run container via docker-compose
 ```bash
 docker-compose up -d --remove-orphans
 ```
 
-### Run container
+### Run container via docker
 ```bash
 docker run --user $(id -u):$(id -g) --rm -ti nafigat0r/node:11 --version
 docker run --user $(id -u):$(id -g) --rm -ti nafigat0r/node:11 yarn --version
