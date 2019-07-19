@@ -1,4 +1,5 @@
 FROM debian:stretch-slim
+MAINTAINER Alexander Yancharuk <alex at itvault dot info>
 
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE 1
 
