@@ -1,4 +1,5 @@
 FROM debian:stretch-slim
+MAINTAINER Alexander Yancharuk <alex at itvault dot info>
 
 # Keys for PHP installation
 ADD https://packages.sury.org/php/apt.gpg /etc/apt/trusted.gpg.d/php.gpg
