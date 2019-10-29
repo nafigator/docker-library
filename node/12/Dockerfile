@@ -3,6 +3,9 @@ MAINTAINER Alexander Yancharuk <alex at itvault dot info>
 
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE 1
 
+ENV NODE_VERSION 12.13.0
+ENV YARN_VERSION 1.19.1
+
 # Node installer download
 ADD https://deb.nodesource.com/setup_12.x /tmp/setup_12.x
 
