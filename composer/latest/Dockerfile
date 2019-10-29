@@ -1,6 +1,8 @@
 FROM nafigat0r/php-cli:7.2
 MAINTAINER Alexander Yancharuk <alex at itvault dot info>
 
+ENV COMPOSER_VERSION 1.9.0
+
 # Copy composer installer
 ADD https://getcomposer.org/installer /tmp/installer
 ADD https://composer.github.io/snapshots.pub /var/www/.composer/keys.dev.pub
