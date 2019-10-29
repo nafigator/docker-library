@@ -1,4 +1,4 @@
-FROM debian:stretch-slim
+FROM debian:buster-slim
 MAINTAINER Alexander Yancharuk <alex at itvault dot info>
 
 # Keys for PHP installation
@@ -15,7 +15,7 @@ RUN chmod 644 /etc/apt/trusted.gpg.d/php.gpg \
 		gnupg \
 		locales \
 		netcat-traditional \
-	&& echo "deb https://packages.sury.org/php/ stretch main" > /etc/apt/sources.list.d/php.list \
+	&& echo "deb https://packages.sury.org/php/ buster main" > /etc/apt/sources.list.d/php.list \
 	&& apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
 		php7.2-cli \
@@ -34,6 +34,8 @@ RUN chmod 644 /etc/apt/trusted.gpg.d/php.gpg \
 		php7.2-zip \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
 		php-memcached \
+		php-redis \
+		php-amqp \
 		php-xdebug \
 	# Cleanup
 	&& DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --autoremove \
