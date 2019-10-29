@@ -15,8 +15,8 @@ RUN apt-get update \
 	&& echo "deb http://repo.yandex.ru/clickhouse/deb/stable/ main/" > /etc/apt/sources.list.d/clickhouse.list \
 	&& apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
-		clickhouse-server=19.1.6 \
-		clickhouse-common-static=19.1.6 \
+		clickhouse-server=19.15.3 \
+		clickhouse-common-static=19.15.3 \
 	&& chown -R clickhouse /etc/clickhouse-server/ \
 	# Cleanup
 	&& DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --autoremove apt-transport-https \
