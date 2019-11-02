@@ -1,3 +1,8 @@
+# Versions
+Node 13.0.1
+
+Yarn 1.19.1
+
 # Supported tags and respective `Dockerfile` links
 -	[`13` (*13/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/node/13/Dockerfile)
 -	[`12` (*12/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/node/12/Dockerfile)
