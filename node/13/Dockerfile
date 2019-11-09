@@ -3,10 +3,7 @@ MAINTAINER Alexander Yancharuk <alex at itvault dot info>
 
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE 1
 
-ENV NODE_VERSION 13.1.0
-ENV YARN_VERSION 1.19.1
-
-# Install packages needed for PHP
+# Install packages needed for node
 RUN apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
 		apt-transport-https \
@@ -43,6 +40,9 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --autoremove apt-transport
 		/var/log/apt/* \
 		/var/cache/debconf \
 		/var/cache/apt/archives/*
+
+ENV NODE_VERSION 13.1.0
+ENV YARN_VERSION 1.19.1
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 
