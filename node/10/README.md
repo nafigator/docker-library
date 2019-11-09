@@ -1,4 +1,5 @@
 # Supported tags and respective `Dockerfile` links
+-	[`13` (*13/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/node/13/Dockerfile)
 -	[`12` (*12/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/node/12/Dockerfile)
 -	[`11` (*11/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/node/11/Dockerfile)
 -	[`10` (*10/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/node/10/Dockerfile)

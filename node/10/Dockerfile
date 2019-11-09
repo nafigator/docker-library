@@ -14,6 +14,7 @@ RUN apt-get update \
 		gnupg \
 		curl \
 		locales \
+		python-dev \
 	# Node installation
 	&& bash /tmp/setup_10.x \
 	&& apt-get update \
