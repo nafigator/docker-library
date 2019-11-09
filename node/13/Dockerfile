@@ -42,7 +42,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --autoremove apt-transport
 		/var/lib/apt/lists/* \
 		/var/log/apt/* \
 		/var/cache/debconf \
-		/var/cache/apt/archives/* \
+		/var/cache/apt/archives/*
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 
