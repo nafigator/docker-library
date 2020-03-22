@@ -36,6 +36,7 @@ RUN bash /tmp/setup_11.x \
 RUN DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --autoremove apt-transport-https \
 	&& apt-get clean \
 	&& rm -rf /var/tmp/* /tmp/* \
+		/etc/apt/sources.list.d/* \
 		/var/lib/apt/lists/* \
 		/var/log/apt/* \
 		/var/cache/debconf \
