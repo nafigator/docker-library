@@ -6,9 +6,9 @@ RUN apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
 		ruby-full \
 		libpng-dev \
-        zlibc \
-        zlib1g \
-        zlib1g-dev
+		zlibc \
+		zlib1g \
+		zlib1g-dev
 
 COPY docker-entrypoint.sh /usr/local/bin/
 COPY Gemfile /var/www/html
