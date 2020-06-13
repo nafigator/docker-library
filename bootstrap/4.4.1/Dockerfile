@@ -5,14 +5,13 @@ MAINTAINER Alexander Yancharuk <alex at itvault dot info>
 RUN apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
 		ruby-full \
+		build-essential \
 		libpng-dev \
 		zlibc \
 		zlib1g \
 		zlib1g-dev
 
 COPY docker-entrypoint.sh /usr/local/bin/
-COPY Gemfile /var/www/html
-COPY Gemfile.lock /var/www/html
 
 # Cleanup
 RUN DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --autoremove apt-transport-https \
@@ -21,20 +20,10 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --autoremove apt-transport
 		/var/lib/apt/lists/* \
 		/var/log/apt/* \
 		/var/cache/debconf \
-		/var/cache/apt/archives/* \
-	&& mkdir -p /var/lib/gems \
-	&& chmod -R 777 /var/lib/gems /usr/local/bin
-
-# Bundler
-RUN gem install bundler:1.17.3 \
-	&& bundle install
+		/var/cache/apt/archives/*
 
 ENV RUBY_VERSION 2.5.5
-ENV PATH="/var/www/html/.gem/ruby/2.5.0/bin:${PATH}"
 
 ENTRYPOINT ["docker-entrypoint.sh"]
-
-# Launch node
-CMD ["ruby"]
 
 WORKDIR /var/www/html/
