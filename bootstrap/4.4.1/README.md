@@ -63,6 +63,7 @@ docker run -u "$(id -u):$(id -g)" --rm \
     -v $(pwd)/lib/bootstrap:/var/www/html \
     -it nafigat0r/bootstrap:4.4.1 npm run dist
 
+# Build documentation
 docker run -u "$(id -u):$(id -g)" --rm \
     -e HOME=/var/www/html \
     -e GEM_HOME=/var/www/html/.gem \
@@ -71,7 +72,7 @@ docker run -u "$(id -u):$(id -g)" --rm \
     -v $(pwd)/lib/bootstrap:/var/www/html \
     -it nafigat0r/bootstrap:4.4.1 npm run docs
 
-
+# Run documentation on http://localhost:9001
 docker run -u "$(id -u):$(id -g)" --rm \
     -e HOME=/var/www/html \
     -e GEM_HOME=/var/www/html/.gem \
