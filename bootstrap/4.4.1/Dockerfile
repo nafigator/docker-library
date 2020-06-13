@@ -1,11 +1,10 @@
-FROM nafigat0r/node:13
+FROM nafigat0r/node:14
 MAINTAINER Alexander Yancharuk <alex at itvault dot info>
 
 # Install packages needed for node
 RUN apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
 		ruby-full \
-		build-essential \
 		libpng-dev \
 		zlibc \
 		zlib1g \
