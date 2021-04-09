@@ -1,5 +1,5 @@
 # Supported tags and respective `Dockerfile` links
--	[`10.5` (*10.5/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/mariadb/10.5/Dockerfile)
+- [`10.5` (*10.5/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/mariadb/10.5/Dockerfile)
 
 # How to use this image
 
@@ -35,3 +35,6 @@ volumes:
 docker-compose build --force-rm --no-cache --pull
 docker-compose up -d --remove-orphans
 ```
+
+### Init data
+Place `.sql`, `.sql.gz` or `.sql.xz` files containing sql-dumps into `./mariadb/` folder and all data will be loaded at container start up. 
