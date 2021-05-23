@@ -3,7 +3,7 @@ MAINTAINER Alexander Yancharuk <alex at itvault dot info>
 
 # Install packages needed for sassc
 RUN apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -yqq --no-install-recommends \
+    && DEBIAN_FRONTEND=noninteractive apt update && apt install -yqq --no-install-recommends \
         git \
         ca-certificates \
         build-essential \
@@ -11,10 +11,13 @@ RUN apt-get update \
     && git clone --depth=1 --branch=3.6.1 https://github.com/sass/sassc.git \
     && . sassc/script/bootstrap \
     && make -C sassc install \
-    && DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --autoremove \
+    && DEBIAN_FRONTEND=noninteractive apt purge -yqq --allow-remove-essential --autoremove \
         git \
         ca-certificates \
         build-essential \
+        e2fsprogs \
+        fdisk \
+    &&
     # Cleanup
     && apt-get clean \
     && rm -rf /var/tmp/* /tmp/* \
