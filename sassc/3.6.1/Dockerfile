@@ -17,7 +17,6 @@ RUN apt-get update \
         build-essential \
         e2fsprogs \
         fdisk \
-    &&
     # Cleanup
     && apt-get clean \
     && rm -rf /var/tmp/* /tmp/* \
