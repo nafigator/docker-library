@@ -28,7 +28,10 @@ RUN	bash /tmp/setup_14.x \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends nodejs
 
 # Cleanup
-RUN DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --autoremove apt-transport-https \
+RUN DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --allow-remove-essential --autoremove \
+		apt-transport-https \
+		e2fsprogs \
+		fdisk \
 	&& apt-get clean \
 	&& rm -rf /var/tmp/* /tmp/* \
 		/etc/apt/sources.list.d/* \
@@ -37,7 +40,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --autoremove apt-transport
 		/var/cache/debconf \
 		/var/cache/apt/archives/*
 
-ENV NODE_VERSION 14.4.0
+ENV NODE_VERSION 14.17.3
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 
