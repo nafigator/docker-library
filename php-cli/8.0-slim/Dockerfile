@@ -19,6 +19,7 @@ RUN chmod 644 /etc/apt/trusted.gpg.d/php.gpg \
 	&& apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
 		php8.0-cli \
+		php8.0-curl \
 	# Cleanup
 	&& DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --allow-remove-essential --autoremove \
 		gnupg \
