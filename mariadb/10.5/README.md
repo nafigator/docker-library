@@ -11,7 +11,7 @@ version: '3.6'
 services:
   mariadb:
     restart: unless-stopped
-    image: mariadb:10.1
+    image: nafigat0r/mariadb:10.5
     environment:
       MYSQL_DATABASE: db_name
       MYSQL_RANDOM_ROOT_PASSWORD: 1

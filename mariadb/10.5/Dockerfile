@@ -21,12 +21,15 @@ RUN apt-get update \
 	&& echo "deb [arch=amd64] http://mirror.mephi.ru/mariadb/repo/$MARIADB_MAJOR/debian buster main" > /etc/apt/sources.list.d/mariadb.list \
 	&& apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yqq \
-		mariadb-server-10.5=1:10.5.8+maria~buster \
+		mariadb-server-10.5=1:10.5.11+maria~buster \
 	# Cleanup
-	&& DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --autoremove \
+	&& DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --allow-remove-essential --autoremove \
 		gnupg \
 		software-properties-common \
 		dirmngr \
+		build-essential \
+		e2fsprogs \
+		fdisk \
 	&& rm /etc/apt/sources.list.d/mariadb.list \
 	&& apt-get update \
 	&& apt-get clean \
