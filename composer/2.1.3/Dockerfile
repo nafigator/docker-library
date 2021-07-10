@@ -1,4 +1,4 @@
-FROM nafigat0r/php-cli:8.0-slim
+FROM nafigat0r/php-cli:8.0
 MAINTAINER Alexander Yancharuk <alex at itvault dot info>
 
 ENV COMPOSER_VERSION 2.1.3
