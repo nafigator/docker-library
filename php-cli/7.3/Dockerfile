@@ -32,11 +32,10 @@ RUN chmod 644 /etc/apt/trusted.gpg.d/php.gpg \
 		php7.3-soap \
 		php7.3-xml \
 		php7.3-zip \
-	&& DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
-		php-memcached \
-		php-redis \
-		php-amqp \
-		php-xdebug \
+		php7.3-memcached \
+		php7.3-redis \
+		php7.3-amqp \
+		php7.3-xdebug \
 	# Cleanup
 	&& DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --allow-remove-essential --autoremove \
 		gnupg \
