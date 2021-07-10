@@ -40,7 +40,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --allow-remove-essential -
 		/var/cache/debconf \
 		/var/cache/apt/archives/*
 
-ENV NODE_VERSION 14.17.3
+ENV NODE_VERSION 14.17.2
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 
