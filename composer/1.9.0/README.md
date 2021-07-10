@@ -1,6 +1,5 @@
 # Supported tags and respective `Dockerfile` links
 -	[`1.9.0` (*latest/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/composer/1.9.0/Dockerfile)
--	[`latest` (*latest/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/composer/latest/Dockerfile)
 
 # How to use this image
 ### Initialise UID
