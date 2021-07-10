@@ -32,11 +32,10 @@ RUN chmod 644 /etc/apt/trusted.gpg.d/php.gpg \
 		php7.2-soap \
 		php7.2-xml \
 		php7.2-zip \
-	&& DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
-		php-memcached \
-		php-redis \
-		php-amqp \
-		php-xdebug \
+		php7.2-memcached \
+		php7.2-redis \
+		php7.2-amqp \
+		php7.2-xdebug \
 	# Cleanup
 	&& DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --allow-remove-essential --autoremove \
 		gnupg \
