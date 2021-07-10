@@ -1,5 +1,5 @@
 # Supported tags and respective `Dockerfile` links
--	[`7.4` (*7.4/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/php-fpm/7.4/Dockerfile)
+-	[`7.4` (*7.4/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/php-cli/7.4/Dockerfile)
 
 # How to use this image
 ### Initialise UID
@@ -43,7 +43,7 @@ docker-compose up -d --remove-orphans
 Create new volume in `docker-compose.yml` like this:
 ```yaml
     volumes:
-      - ./override.ini:/etc/php/7.4/fpm/conf.d/zz-override.ini
+      - ./override.ini:/etc/php/7.4/cli/conf.d/zz-override.ini
 ```
 
 ### Change locale and timezone
