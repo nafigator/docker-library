@@ -40,7 +40,6 @@ RUN chmod 644 /etc/apt/trusted.gpg.d/php.gpg \
 		apt-transport-https \
 		build-essential \
 		e2fsprogs \
-		fdisk \
 	&& rm /etc/apt/sources.list.d/php.list \
 	&& apt-get update \
 	&& apt-get clean \
