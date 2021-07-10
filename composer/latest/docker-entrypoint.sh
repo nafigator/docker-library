@@ -5,6 +5,7 @@ check_command() {
     "about" \
     "archive" \
     "browse" \
+    "cc" \
     "check-platform-reqs" \
     "clear-cache" \
     "clearcache" \
@@ -15,6 +16,7 @@ check_command() {
     "dump-autoload" \
     "dumpautoload" \
     "exec" \
+    "fund" \
     "global" \
     "help" \
     "home" \
@@ -26,8 +28,10 @@ check_command() {
     "list" \
     "outdated" \
     "prohibits" \
+    "reinstall" \
     "remove" \
     "require" \
+    "run" \
     "run-script" \
     "search" \
     "self-update" \

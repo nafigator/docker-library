@@ -1,7 +1,7 @@
-FROM nafigat0r/php-cli:7.2
+FROM nafigat0r/php-cli:8.0
 MAINTAINER Alexander Yancharuk <alex at itvault dot info>
 
-ENV COMPOSER_VERSION 1.9.0
+ENV COMPOSER_VERSION 2.1.3
 
 # Copy composer installer
 ADD https://getcomposer.org/installer /tmp/installer
@@ -19,7 +19,7 @@ RUN chmod -R 777 /var/www/.composer \
 		git
 
 # Install Composer
-RUN php /tmp/installer --no-ansi --install-dir=/usr/local/bin --filename=composer \
+RUN php /tmp/installer --no-ansi --install-dir=/usr/local/bin --filename=composer  --version=2.1.3 \
 	# Cleanup
 	&& apt-get clean \
 	&& rm -rf /var/tmp/* /tmp/* \
