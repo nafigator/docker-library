@@ -21,13 +21,16 @@ services:
   composer:
     image: nafigat0r/composer:2.1.3
     environment:
-      - SSH_AUTH_SOCK
       - HOME=/var/www
+      - SSH_AUTH_SOCK=/ssh-auth.sock
     volumes:
       - ./:/var/www/html/
       - /etc/passwd:/etc/passwd:ro
       - /etc/group:/etc/group:ro
-      - ${SSH_AUTH_SOCK}:${SSH_AUTH_SOCK}
+      - ${SSH_AUTH_SOCK}:/ssh-auth.sock
+      - ${HOME}/.cache/composer:/var/www/.cache/composer
+      - ${HOME}/.ssh/config:/etc/ssh/ssh_config:ro
+      - ${HOME}/.ssh/known_hosts:/etc/ssh/ssh_known_hosts:ro
     user: ${UID}:${UID}
     restart: unless-stopped
 ```
@@ -38,9 +41,12 @@ docker run --user $(id -u):$(id -g) \
 	--volume /etc/passwd:/etc/passwd:ro \
 	--volume /etc/group:/etc/group:ro \
 	--volume $SSH_AUTH_SOCK:/ssh-auth.sock \
+	--volume $HOME/.cache/composer/:/var/www/.cache/composer \
+	--volume $HOME/.ssh/config:/etc/ssh/ssh_config \
+	--volume $HOME/.ssh/known_hosts:/etc/ssh/ssh_known_hosts:ro \
 	--env SSH_AUTH_SOCK=/ssh-auth.sock \
 	--env HOME=/var/www \
-	--rm -t nafigat0r/composer:latest \
+	--rm -t nafigat0r/composer:2.1.3 \
 	diagnose
 ```
 

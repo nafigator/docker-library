@@ -22,6 +22,8 @@ RUN chmod -R 777 /var/www/.composer \
 RUN php /tmp/installer --no-ansi --install-dir=/usr/local/bin --filename=composer  --version=2.1.3 \
 	# Cleanup
 	&& apt-get clean \
+	&& DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --allow-remove-essential --autoremove \
+		gnupg \
 	&& rm -rf /var/tmp/* /tmp/* \
 		/var/lib/apt/lists/* \
 		/var/log/apt/* \
