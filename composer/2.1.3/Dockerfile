@@ -1,4 +1,4 @@
-FROM nafigat0r/php-cli:8.0
+FROM nafigat0r/php-cli:8.0-slim
 MAINTAINER Alexander Yancharuk <alex at itvault dot info>
 
 ENV COMPOSER_VERSION 2.1.3
@@ -27,6 +27,7 @@ RUN php /tmp/installer --no-ansi --install-dir=/usr/local/bin --filename=compose
 		/var/log/apt/* \
 		/var/cache/debconf \
 		/var/cache/apt/archives/* \
+		/tmp/installer \
 	# Install locale
 	&& sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
 	&& DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales \
