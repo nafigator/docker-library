@@ -1,5 +1,5 @@
 # Versions
-Node 14.4.0
+Node 14.17.3
 
 # Supported tags and respective `Dockerfile` links
 -	[`14` (*14/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/node/14/Dockerfile)
