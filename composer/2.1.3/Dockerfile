@@ -24,18 +24,13 @@ RUN php /tmp/installer --no-ansi --install-dir=/usr/local/bin --filename=compose
 	&& apt-get clean \
 	&& DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --allow-remove-essential --autoremove \
 		gnupg \
+		git \
 	&& rm -rf /var/tmp/* /tmp/* \
 		/var/lib/apt/lists/* \
 		/var/log/apt/* \
 		/var/cache/debconf \
 		/var/cache/apt/archives/* \
-		/tmp/installer \
-	# Install locale
-	&& sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
-	&& DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales \
-	&& update-locale LANG=en_US.UTF-8
-
-ENV LANG en_US.UTF-8
+		/tmp/installer
 
 COPY docker-entrypoint.sh /usr/local/bin/
 
