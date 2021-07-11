@@ -41,7 +41,7 @@ docker run --user $(id -u):$(id -g) \
 	--volume /etc/group:/etc/group:ro \
 	--volume $SSH_AUTH_SOCK:/ssh-auth.sock \
 	--volume $HOME/.cache/composer/:/var/www/.cache/composer \
-	--volume $HOME/.ssh/config:/etc/ssh/ssh_config \
+	--volume $HOME/.ssh/config:/etc/ssh/ssh_config:ro \
 	--volume $HOME/.ssh/known_hosts:/etc/ssh/ssh_known_hosts:ro \
 	--env SSH_AUTH_SOCK=/ssh-auth.sock \
 	--env HOME=/var/www \
