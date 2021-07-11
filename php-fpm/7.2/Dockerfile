@@ -39,8 +39,6 @@ RUN chmod 644 /etc/apt/trusted.gpg.d/php.gpg \
 	&& DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --allow-remove-essential --autoremove \
 		gnupg \
 		apt-transport-https \
-		build-essential \
-		e2fsprogs \
 	&& rm /etc/apt/sources.list.d/php.list \
 	&& apt-get update \
 	&& apt-get clean \
