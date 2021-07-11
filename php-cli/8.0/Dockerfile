@@ -39,9 +39,6 @@ RUN chmod 644 /etc/apt/trusted.gpg.d/php.gpg \
 	&& DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --allow-remove-essential --autoremove \
 		gnupg \
 		apt-transport-https \
-		build-essential \
-		e2fsprogs \
-		fdisk \
 	&& rm /etc/apt/sources.list.d/php.list \
 	&& apt-get update \
 	&& apt-get clean \
@@ -50,7 +47,6 @@ RUN chmod 644 /etc/apt/trusted.gpg.d/php.gpg \
 		/var/log/apt/* \
 		/var/cache/debconf \
 		/var/cache/apt/archives/* \
-		/etc/apt/trusted.gpg.d/php.gpg \
 	# Install locale
 	&& sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
 	&& DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales \
