@@ -24,7 +24,6 @@ RUN php /tmp/installer --no-ansi --install-dir=/usr/local/bin --filename=compose
 	&& apt-get clean \
 	&& DEBIAN_FRONTEND=noninteractive apt-get purge -yqq --allow-remove-essential --autoremove \
 		gnupg \
-		git \
 	&& rm -rf /var/tmp/* /tmp/* \
 		/var/lib/apt/lists/* \
 		/var/log/apt/* \
