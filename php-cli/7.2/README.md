@@ -1,5 +1,9 @@
 # Supported tags and respective `Dockerfile` links
 -	[`7.2` (*7.2/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/php-cli/7.2/Dockerfile)
+-	[`7.3` (*7.3/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/php-cli/7.3/Dockerfile)
+-	[`7.4` (*7.4/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/php-cli/7.4/Dockerfile)
+-	[`8.0` (*8.0/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/php-cli/8.0/Dockerfile)
+-	[`8.1` (*8.1/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/php-cli/8.1/Dockerfile)
 
 # How to use this image
 ### Initialise UID

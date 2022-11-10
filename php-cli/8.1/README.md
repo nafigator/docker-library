@@ -22,7 +22,7 @@ Suggested path for `docker-compose.yml` root of your project.
 version: '3.6'
 services:
   php:
-    image: nafigat0r/php-cli:7.4
+    image: nafigat0r/php-cli:8.1
     user: ${UID}:${UID}
     command: script.php
     volumes:
@@ -47,14 +47,14 @@ docker-compose up -d --remove-orphans
 Create new volume in `docker-compose.yml` like this:
 ```yaml
     volumes:
-      - ./override.ini:/etc/php/7.4/cli/conf.d/zz-override.ini
+      - ./override.ini:/etc/php/8.1/fpm/conf.d/zz-override.ini
 ```
 
 ### Change locale and timezone
 
 Create Dockerfile:
 ```dockerfile
-FROM nafigat0r/php-cli:7.4
+FROM nafigat0r/php-cli:8.1
 
 # Change locale
 RUN sed -i -e "s/# ru_RU.UTF-8 UTF-8/ru_RU.UTF-8 UTF-8/" /etc/locale.gen \
