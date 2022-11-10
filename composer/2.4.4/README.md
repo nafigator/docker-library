@@ -1,5 +1,8 @@
 # Supported tags and respective `Dockerfile` links
+-	[`1.8.0` (*1.8.0/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/composer/1.8.0/Dockerfile)
 -	[`1.9.0` (*1.9.0/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/composer/1.9.0/Dockerfile)
+-	[`2.1.3` (*2.1.3/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/composer/2.1.3/Dockerfile)
+-	[`2.4.4, latest` (*latest/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/composer/2.4.4/Dockerfile)
 
 # How to use this image
 ### Initialise UID
@@ -18,15 +21,18 @@ Suggested path for `docker-compose.yml` root of your project.
 version: '3.6'
 services:
   composer:
-    image: nafigat0r/composer:1.9.0
+    image: nafigat0r/composer:2.4.4
     environment:
-      - SSH_AUTH_SOCK
       - HOME=/var/www
+      - SSH_AUTH_SOCK=/ssh-auth.sock
     volumes:
       - ./:/var/www/html/
       - /etc/passwd:/etc/passwd:ro
       - /etc/group:/etc/group:ro
-      - ${SSH_AUTH_SOCK}:${SSH_AUTH_SOCK}
+      - ${SSH_AUTH_SOCK}:/ssh-auth.sock
+      - ${HOME}/.cache/composer:/var/www/.cache/composer
+      - ${HOME}/.ssh/config:/etc/ssh/ssh_config:ro
+      - ${HOME}/.ssh/known_hosts:/etc/ssh/ssh_known_hosts:ro
     user: ${UID}:${UID}
     restart: unless-stopped
 ```
@@ -37,9 +43,12 @@ docker run --user $(id -u):$(id -g) \
 	--volume /etc/passwd:/etc/passwd:ro \
 	--volume /etc/group:/etc/group:ro \
 	--volume $SSH_AUTH_SOCK:/ssh-auth.sock \
+	--volume $HOME/.cache/composer/:/var/www/.cache/composer \
+	--volume $HOME/.ssh/config:/etc/ssh/ssh_config:ro \
+	--volume $HOME/.ssh/known_hosts:/etc/ssh/ssh_known_hosts:ro \
 	--env SSH_AUTH_SOCK=/ssh-auth.sock \
 	--env HOME=/var/www \
-	--rm -t nafigat0r/composer:1.9.0 \
+	--rm -t nafigat0r/composer:2.4.4 \
 	diagnose
 ```
 
