@@ -47,7 +47,7 @@ RUN chmod 644 /etc/apt/trusted.gpg.d/php.gpg \
 		/var/log/apt/* \
 		/var/cache/debconf \
 		/var/cache/apt/archives/* \
-		/etc/php/8.0/cli/conf.d/20-xdebug.ini \
+		/etc/php/8.1/cli/conf.d/20-xdebug.ini \
 		/etc/apt/trusted.gpg.d/php.gpg \
 	# Install locale
 	&& sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
