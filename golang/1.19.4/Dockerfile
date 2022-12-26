@@ -1,7 +1,7 @@
 FROM debian:buster-slim
 MAINTAINER Alexander Yancharuk <alex at itvault dot info>
 
-# Install packages needed for PHP
+# Install packages needed for CGO
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
 		ca-certificates \
 		locales \
