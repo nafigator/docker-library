@@ -1,0 +1,87 @@
+FROM debian:bullseye-20230411-slim as builder
+MAINTAINER Alexander Yancharuk <alex at itvault dot info>
+
+LABEL stage=builder
+
+# Install packages needed for CGO
+RUN apt-get update \
+	&& DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
+		ca-certificates \
+		curl \
+		unzip
+
+ENV GOPATH /go
+ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
+ENV PB_REL="https://github.com/protocolbuffers/protobuf/releases"
+ENV GOLANG_VERSION 1.23.4
+ENV GOMOCK_VERSION 0.5.0
+ENV PROTOC_VERSION=29.2
+ENV PROTOC_GEN_GO_VERSION=v1.36.1
+ENV PROTOC_GEN_GO_GRPC_VERSION=v1.5.1
+ENV LINTER_VERSION=v0.51.0
+
+# Download The Ministry of Digital Development and Communications certs
+RUN curl --output-dir /usr/local/share/ca-certificates -sO https://gu-st.ru/content/lending/russian_trusted_root_ca_pem.crt \
+	&& curl --output-dir /usr/local/share/ca-certificates -sO https://gu-st.ru/content/lending/russian_trusted_sub_ca_pem.crt
+
+# Go installation
+ADD https://go.dev/dl/go${GOLANG_VERSION}.linux-amd64.tar.gz /tmp/
+ADD $PB_REL/download/v${PROTOC_VERSION}/protoc-${PROTOC_VERSION}-linux-x86_64.zip /tmp/
+
+# Go installation
+RUN mkdir -p ${GOPATH}/src \
+	&& mkdir -p ${GOPATH}/bin \
+	&& chmod -R 777 "$GOPATH" \
+	&& tar -C /usr/local -xzf /tmp/go${GOLANG_VERSION}.linux-amd64.tar.gz \
+	# Install Uber gomock
+	&& go install go.uber.org/mock/mockgen@v${GOMOCK_VERSION} \
+	&& unzip /tmp/protoc-${PROTOC_VERSION}-linux-x86_64.zip -d /usr/local \
+	# Install protoc-gen-go
+	&& go install google.golang.org/protobuf/cmd/protoc-gen-go@${PROTOC_GEN_GO_VERSION} \
+	# Install protoc-gen-go-grpc
+	&& go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@${PROTOC_GEN_GO_GRPC_VERSION} \
+	# Install protoc-gen-protolint
+	&& go install github.com/yoheimuta/protolint/cmd/protoc-gen-protolint@${LINTER_VERSION} \
+	&& go clean -cache -testcache -modcache -fuzzcache
+
+FROM debian:bullseye-20230411-slim as production
+MAINTAINER Alexander Yancharuk <alex at itvault dot info>
+
+# Install packages needed for CGO
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
+		ca-certificates \
+		g++ \
+		gcc \
+		libc6-dev \
+		make \
+		pkg-config \
+		git \
+	&& apt-get clean \
+	&& rm -rf /var/tmp/* /tmp/* \
+		/var/lib/apt/lists/* \
+		/var/log/apt/*
+
+COPY --from=builder /go /go
+COPY --from=builder /usr/local/bin/protoc /usr/local/bin
+COPY --from=builder /usr/local/include/google /usr/local/include/google
+COPY --from=builder /usr/local/go /usr/local/go
+
+# Install The Ministry of Digital Development and Communications certs
+COPY --from=builder /usr/local/share/ca-certificates /usr/local/share/ca-certificates
+RUN update-ca-certificates
+
+ENV GOPATH /go
+ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
+ENV PB_REL="https://github.com/protocolbuffers/protobuf/releases"
+ENV GOLANG_VERSION 1.23.4
+ENV GOMOCK_VERSION 0.5.0
+ENV PROTOC_VERSION=29.2
+ENV PROTOC_GEN_GO_VERSION=v1.36.1
+ENV PROTOC_GEN_GO_GRPC_VERSION=v1.69.2
+ENV LINTER_VERSION=v0.51.0
+
+ENTRYPOINT ["/usr/local/go/bin/go"]
+
+WORKDIR $GOPATH
+
+# docker build --force-rm --no-cache --tag nafigat0r/go:1.23.4 ./ && docker image prune -f --filter label=stage=builder
