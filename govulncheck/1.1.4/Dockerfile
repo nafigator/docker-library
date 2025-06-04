@@ -40,8 +40,10 @@ LABEL org.opencontainers.image.revision="$REVISION" \
 
 COPY --from=builder /go/bin/govulncheck /usr/local/sbin/govulncheck
 
-ENTRYPOINT ["/usr/local/sbin/govulncheck"]
-
 WORKDIR /var/govulncheck
+
+USER nobody
+
+ENTRYPOINT ["/usr/local/sbin/govulncheck"]
 
 # docker build --force-rm --no-cache --build-arg REVISION=$(git log -n 1 --format=%h) --tag nafigat0r/govulncheck:1.1.4 ./ && docker image prune -f --filter label=stage=builder
