@@ -43,17 +43,11 @@ RUN mkdir -p ${GOPATH}/src \
 	&& go install github.com/yoheimuta/protolint/cmd/protoc-gen-protolint@${LINTER_VERSION} \
 	&& go clean -cache -testcache -modcache -fuzzcache
 
-FROM debian:bullseye-20230411-slim AS production
-
-ARG REVISION
-LABEL org.opencontainers.image.revision="$REVISION" \
-	org.opencontainers.image.authors="alex@itvault.info" \
-	org.opencontainers.image.vendor="Alexander Yancharuk" \
-	org.opencontainers.image.licenses=MIT \
-	org.opencontainers.image.source="https://github.com/nafigator/docker-library/blob/master/golang/1.24.3/Dockerfile"
+FROM debian:bullseye-20230411-slim AS image
 
 # Install packages needed for CGO
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
+		curl \
 		ca-certificates \
 		g++ \
 		gcc \
@@ -77,8 +71,7 @@ RUN update-ca-certificates
 
 ENV GOPATH /go
 ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
-ENV PB_REL="https://github.com/protocolbuffers/protobuf/releases"
-ENV GOLANG_VERSION 1.24.1
+ENV GOLANG_VERSION 1.24.3
 ENV GOMOCK_VERSION 0.5.0
 ENV PROTOC_VERSION=30.2
 ENV PROTOC_GEN_GO_VERSION=v1.36.6
@@ -91,4 +84,4 @@ ENTRYPOINT ["/usr/local/go/bin/go"]
 
 WORKDIR $GOPATH
 
-# docker build --force-rm --no-cache --build-arg REVISION=$(git log -n 1 --format=%h) --tag nafigat0r/go:1.24.3 ./ && docker image prune -f --filter label=stage=builder
+# docker build --force-rm --no-cache --tag nafigat0r/go:1.24.3 ./ && docker image prune -f --filter label=stage=builder

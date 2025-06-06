@@ -26,17 +26,10 @@ RUN mkdir -p ${GOPATH}/src \
 	&& go install golang.org/x/vuln/cmd/govulncheck@v${GOVULNCHECK_VERSION} \
 	&& go clean -cache -testcache -modcache -fuzzcache
 
-FROM nafigat0r/go:1.24.3 AS production
+FROM nafigat0r/go:1.24.3 AS image
 
 ENV GOLANG_VERSION 1.24.3
 ENV GOVULNCHECK_VERSION 1.1.4
-
-ARG REVISION
-LABEL org.opencontainers.image.revision="$REVISION" \
-	org.opencontainers.image.authors="alex@itvault.info" \
-	org.opencontainers.image.vendor="Alexander Yancharuk" \
-	org.opencontainers.image.licenses=MIT \
-	org.opencontainers.image.source="https://github.com/nafigator/docker-library/blob/${REVISION}/govulncheck/${GOVULNCHECK_VERSION}/Dockerfile"
 
 COPY --from=builder /go/bin/govulncheck /usr/local/sbin/govulncheck
 
@@ -46,4 +39,4 @@ USER nobody
 
 ENTRYPOINT ["/usr/local/sbin/govulncheck"]
 
-# docker build --force-rm --no-cache --build-arg REVISION=$(git log -n 1 --format=%h) --tag nafigat0r/govulncheck:1.1.4 ./ && docker image prune -f --filter label=stage=builder
+# docker build --force-rm --no-cache --tag nafigat0r/govulncheck:1.1.4 ./ && docker image prune -f --filter label=stage=builder
