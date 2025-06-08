@@ -13,7 +13,7 @@ docker run -u 0 \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -v "/home/${USER}/.docker/config.json:/root/.docker/config.json" \
     --network host \
-    chainguard/crane:latest mutate \
+    nafigat0r/crane:0.20.5 mutate \
     --annotation "org.opencontainers.image.revision=${REVISION}" \
     --annotation "org.opencontainers.image.created=${BUILD_TIME}" \
     --annotation "org.opencontainers.image.title=$1" \
