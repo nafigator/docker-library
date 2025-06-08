@@ -23,9 +23,9 @@ COPY --from=builder /go/bin/crane /usr/local/sbin/crane
 COPY --from=builder /usr/local/share/ca-certificates /usr/local/share/ca-certificates
 COPY --from=builder /etc/ssl/certs /etc/ssl/certs
 
-WORKDIR /usr/local/sbin
+WORKDIR /var/www
 
-USER nobody
+USER www-data
 
 ENTRYPOINT ["/usr/local/sbin/crane"]
 

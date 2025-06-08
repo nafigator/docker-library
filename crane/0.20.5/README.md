@@ -9,8 +9,7 @@ Crane 0.20.5
 ```bash
 $ docker run -u 0 \
     --rm -it \
-    -v /var/run/docker.sock:/var/run/docker.sock \
-    -v "/home/${USER}/.docker/config.json:/root/.docker/config.json" \
+    -v "/home/${USER}/.docker/config.json:/root/.docker/config.json:ro" \
     --network host \
     nafigat0r/crane:0.20.5 --help
 ```
