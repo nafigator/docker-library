@@ -30,3 +30,4 @@ USER www-data
 ENTRYPOINT ["/usr/local/sbin/crane"]
 
 # docker build --force-rm --no-cache --tag nafigat0r/crane:0.20.5 ./ && docker image prune -f --filter label=stage=builder
+# ./annotate.sh crane 0.20.5 'Tool for interacting with remote images and registries'

@@ -85,3 +85,4 @@ ENTRYPOINT ["/usr/local/go/bin/go"]
 WORKDIR $GOPATH
 
 # docker build --force-rm --no-cache --tag nafigat0r/go:1.24.3 ./ && docker image prune -f --filter label=stage=builder
+# ./annotate.sh go 1.24.3 'Google Go language image'

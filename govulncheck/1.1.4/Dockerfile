@@ -11,7 +11,6 @@ RUN apt-get update \
 
 ENV GOPATH /go
 ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
-ENV GOLANG_VERSION 1.24.3
 ENV GOVULNCHECK_VERSION 1.1.4
 
 # Govulncheck installation
@@ -20,7 +19,6 @@ RUN go install golang.org/x/vuln/cmd/govulncheck@v${GOVULNCHECK_VERSION} \
 
 FROM nafigat0r/go:1.24.3 AS image
 
-ENV GOLANG_VERSION 1.24.3
 ENV GOVULNCHECK_VERSION 1.1.4
 
 COPY --from=builder /go/bin/govulncheck /usr/local/sbin/govulncheck
@@ -32,3 +30,4 @@ USER nobody
 ENTRYPOINT ["/usr/local/sbin/govulncheck"]
 
 # docker build --force-rm --no-cache --tag nafigat0r/govulncheck:1.1.4 ./ && docker image prune -f --filter label=stage=builder
+# ./annotate.sh govulncheck 1.1.4 'Security utility for checking dependencies vulnerabilities'

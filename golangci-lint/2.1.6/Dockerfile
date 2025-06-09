@@ -24,3 +24,4 @@ USER nobody
 ENTRYPOINT ["/go/bin/golangci-lint"]
 
 # docker build --force-rm --no-cache --tag nafigat0r/golangci-lint:2.1.6 ./ && docker image prune -f --filter label=stage=builder
+# ./annotate.sh golangci-lint 2.1.6 'Go linters runner'
