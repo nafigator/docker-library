@@ -1,4 +1,4 @@
-FROM nafigat0r/go:1.24.3 as builder
+FROM nafigat0r/go:1.24.3 AS builder
 
 # https://stackoverflow.com/questions/50126741/how-to-remove-intermediate-images-from-a-build-after-the-build
 LABEL stage=builder

@@ -1,4 +1,4 @@
-FROM debian:bullseye-20230411-slim as builder
+FROM nafigat0r/go:1.24.3 AS builder
 
 LABEL stage=builder
 
@@ -14,16 +14,8 @@ ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
 ENV GOLANG_VERSION 1.24.3
 ENV GOVULNCHECK_VERSION 1.1.4
 
-# Go installation
-ADD https://go.dev/dl/go${GOLANG_VERSION}.linux-amd64.tar.gz /tmp/
-
-# Go installation
-RUN mkdir -p ${GOPATH}/src \
-	&& mkdir -p ${GOPATH}/bin \
-	&& chmod -R 777 "$GOPATH" \
-	&& tar -C /usr/local -xzf /tmp/go${GOLANG_VERSION}.linux-amd64.tar.gz \
-	# Install govulncheck
-	&& go install golang.org/x/vuln/cmd/govulncheck@v${GOVULNCHECK_VERSION} \
+# Govulncheck installation
+RUN go install golang.org/x/vuln/cmd/govulncheck@v${GOVULNCHECK_VERSION} \
 	&& go clean -cache -testcache -modcache -fuzzcache
 
 FROM nafigat0r/go:1.24.3 AS image

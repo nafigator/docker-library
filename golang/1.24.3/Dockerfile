@@ -1,4 +1,4 @@
-FROM debian:bullseye-20230411-slim as builder
+FROM debian:bookworm-20250520-slim AS builder
 
 LABEL stage=builder
 
@@ -17,7 +17,7 @@ ENV GOMOCK_VERSION 0.5.0
 ENV PROTOC_VERSION=30.2
 ENV PROTOC_GEN_GO_VERSION=v1.36.6
 ENV PROTOC_GEN_GO_GRPC_VERSION=v1.5.1
-ENV LINTER_VERSION=v0.53.0
+ENV LINTER_VERSION=v0.55.6
 
 # Download The Ministry of Digital Development and Communications certs
 RUN curl --output-dir /usr/local/share/ca-certificates -sO https://gu-st.ru/content/lending/russian_trusted_root_ca_pem.crt \
@@ -43,7 +43,7 @@ RUN mkdir -p ${GOPATH}/src \
 	&& go install github.com/yoheimuta/protolint/cmd/protoc-gen-protolint@${LINTER_VERSION} \
 	&& go clean -cache -testcache -modcache -fuzzcache
 
-FROM debian:bullseye-20230411-slim AS image
+FROM debian:bookworm-20250520-slim AS image
 
 # Install packages needed for CGO
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
@@ -76,7 +76,7 @@ ENV GOMOCK_VERSION 0.5.0
 ENV PROTOC_VERSION=30.2
 ENV PROTOC_GEN_GO_VERSION=v1.36.6
 ENV PROTOC_GEN_GO_GRPC_VERSION=v1.5.1
-ENV LINTER_VERSION=v0.53.0
+ENV LINTER_VERSION=v0.55.6
 
 RUN go telemetry off
 
