@@ -12,3 +12,23 @@ GoLang Linter 2.1.6
 ```bash
 $ docker run --user $(id -u):$(id -g) --rm -ti nafigat0r/golangci-lint:2.1.6 version
 ```
+### Check project
+```bash
+$ docker run -ti --rm --user "$(id -u):$(id -g)" \
+    -e HOME=/tmp \
+    -e XDG_CONFIG_HOME=/var/config \
+    -e XDG_CACHE_HOME=/var/cache \
+    -e GOCACHE=/var/cache/go-build \
+    -e CGO_ENABLED=0 \
+    -v /etc/passwd:/etc/passwd:ro \
+    -v /etc/group:/etc/group:ro \
+    -v "$(readlink -f ${HOME}/.gitconfig):/etc/gitconfig:ro" \
+    -v "${HOME}/.config:/var/config" \
+    -v "${GOPATH}/pkg:/go/pkg:Z" \
+    -v "${GOPATH}/mod:/go/mod:Z" \
+    -v "${HOME}/.cache:/var/cache" \
+    -v "$(pwd):/tmp/project" \
+    -w "/tmp/project" \
+    --network host \
+    nafigat0r/golangci-lint:2.1.6 run
+```

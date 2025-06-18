@@ -14,3 +14,24 @@ Go 1.24.3
 ```bash
 $ docker run --user $(id -u):$(id -g) --rm -ti nafigat0r/go:1.24.3 version
 ```
+### Work inside container
+```bash
+$ docker run -ti --rm --user "$(id -u):$(id -g)" \
+    --entrypoint=/bin/bash \
+    -e HOME=/tmp \
+    -e XDG_CONFIG_HOME=/var/config \
+    -e XDG_CACHE_HOME=/var/cache \
+    -e GOCACHE=/var/cache/go-build \
+    -e CGO_ENABLED=0 \
+    -v /etc/passwd:/etc/passwd:ro \
+    -v /etc/group:/etc/group:ro \
+    -v "$(readlink -f ${HOME}/.gitconfig):/etc/gitconfig:ro" \
+    -v "${HOME}/.config:/var/config" \
+    -v "${GOPATH}/pkg:/go/pkg:Z" \
+    -v "${GOPATH}/mod:/go/mod:Z" \
+    -v "${HOME}/.cache:/var/cache" \
+    -v "$(pwd):/tmp/project" \
+    -w "/tmp/project" \
+    --network host \
+    nafigat0r/go:1.24.3
+```
