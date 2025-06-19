@@ -70,6 +70,7 @@ COPY --from=builder /usr/local/share/ca-certificates /usr/local/share/ca-certifi
 RUN update-ca-certificates
 
 ENV GOPATH /go
+ENV GOTOOLCHAIN=local
 ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
 ENV GOLANG_VERSION 1.24.3
 ENV GOMOCK_VERSION 0.5.0
