@@ -9,19 +9,20 @@ RUN apt-get update \
 		curl \
 		unzip
 
+ENV PB_REL "https://github.com/protocolbuffers/protobuf/releases"
 ENV GOPATH /go
 ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
-ENV PB_REL="https://github.com/protocolbuffers/protobuf/releases"
 ENV GOLANG_VERSION 1.24.3
 ENV GOMOCK_VERSION 0.5.0
-ENV PROTOC_VERSION=30.2
-ENV PROTOC_GEN_GO_VERSION=v1.36.6
-ENV PROTOC_GEN_GO_GRPC_VERSION=v1.5.1
-ENV LINTER_VERSION=v0.55.6
+ENV PROTOC_VERSION 30.2
+ENV PROTOC_GEN_GO_VERSION v1.36.6
+ENV PROTOC_GEN_GO_GRPC_VERSION v1.5.1
+ENV LINTER_VERSION v0.55.6
 
 # Download The Ministry of Digital Development and Communications certs
 RUN curl --output-dir /usr/local/share/ca-certificates -sO https://gu-st.ru/content/lending/russian_trusted_root_ca_pem.crt \
-	&& curl --output-dir /usr/local/share/ca-certificates -sO https://gu-st.ru/content/lending/russian_trusted_sub_ca_pem.crt
+	&& curl --output-dir /usr/local/share/ca-certificates -sO https://gu-st.ru/content/lending/russian_trusted_sub_ca_pem.crt \
+    && update-ca-certificates
 
 # Go installation
 ADD https://go.dev/dl/go${GOLANG_VERSION}.linux-amd64.tar.gz /tmp/
@@ -45,10 +46,26 @@ RUN mkdir -p ${GOPATH}/src \
 
 FROM debian:bookworm-20250520-slim AS image
 
+ENV GOPATH /go
+ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
+ENV GOLANG_VERSION 1.24.3
+ENV GOMOCK_VERSION 0.5.0
+ENV PROTOC_VERSION 30.2
+ENV PROTOC_GEN_GO_VERSION v1.36.6
+ENV PROTOC_GEN_GO_GRPC_VERSION v1.5.1
+ENV LINTER_VERSION v0.55.6
+ENV ANALYZER_VERSION v0.0.0-20241125201851-f880bc31df61
+
+COPY --from=builder /go /go
+COPY --from=builder /usr/local/bin/protoc /usr/local/bin
+COPY --from=builder /usr/local/include/google /usr/local/include/google
+COPY --from=builder /usr/local/go /usr/local/go
+# Copy CA certificates for HTTPS
+COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+
 # Install packages needed for CGO
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
 		curl \
-		ca-certificates \
 		g++ \
 		gcc \
 		libc6-dev \
@@ -58,28 +75,11 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-i
 	&& apt-get clean \
 	&& rm -rf /var/tmp/* /tmp/* \
 		/var/lib/apt/lists/* \
-		/var/log/apt/*
+		/var/log/apt/* \
+    && go env -w GOTOOLCHAIN=local \
+	&& go telemetry off
 
-COPY --from=builder /go /go
-COPY --from=builder /usr/local/bin/protoc /usr/local/bin
-COPY --from=builder /usr/local/include/google /usr/local/include/google
-COPY --from=builder /usr/local/go /usr/local/go
-
-# Install The Ministry of Digital Development and Communications certs
-COPY --from=builder /usr/local/share/ca-certificates /usr/local/share/ca-certificates
-RUN update-ca-certificates
-
-ENV GOPATH /go
-ENV GOTOOLCHAIN=local
-ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
-ENV GOLANG_VERSION 1.24.3
-ENV GOMOCK_VERSION 0.5.0
-ENV PROTOC_VERSION=30.2
-ENV PROTOC_GEN_GO_VERSION=v1.36.6
-ENV PROTOC_GEN_GO_GRPC_VERSION=v1.5.1
-ENV LINTER_VERSION=v0.55.6
-
-RUN go telemetry off
+USER nobody
 
 ENTRYPOINT ["/usr/local/go/bin/go"]
 
