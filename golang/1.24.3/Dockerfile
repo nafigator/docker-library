@@ -76,10 +76,8 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-i
 	&& rm -rf /var/tmp/* /tmp/* \
 		/var/lib/apt/lists/* \
 		/var/log/apt/* \
-    && go env -w GOTOOLCHAIN=local \
+	&& go env -w GOTOOLCHAIN=local \
 	&& go telemetry off
-
-USER nobody
 
 ENTRYPOINT ["/usr/local/go/bin/go"]
 
