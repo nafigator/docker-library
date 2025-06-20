@@ -22,7 +22,7 @@ ENV LINTER_VERSION v0.55.6
 # Download The Ministry of Digital Development and Communications certs
 RUN curl --output-dir /usr/local/share/ca-certificates -sO https://gu-st.ru/content/lending/russian_trusted_root_ca_pem.crt \
 	&& curl --output-dir /usr/local/share/ca-certificates -sO https://gu-st.ru/content/lending/russian_trusted_sub_ca_pem.crt \
-    && update-ca-certificates
+	&& update-ca-certificates
 
 # Go installation
 ADD https://go.dev/dl/go${GOLANG_VERSION}.linux-amd64.tar.gz /tmp/
