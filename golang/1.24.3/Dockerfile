@@ -46,6 +46,22 @@ RUN mkdir -p ${GOPATH}/src \
 
 FROM debian:bookworm-20250520-slim AS image
 
+# Install packages needed for CGO
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
+		curl \
+		g++ \
+		gcc \
+		libc6-dev \
+		make \
+		pkg-config \
+		git \
+	&& apt-get clean \
+	&& rm -rf /var/tmp/* /tmp/* \
+		/var/lib/apt/lists/* \
+		/var/log/apt/* \
+	&& go env -w GOTOOLCHAIN=local \
+	&& go telemetry off
+
 ENV GOPATH /go
 ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
 ENV GOLANG_VERSION 1.24.3
@@ -62,22 +78,6 @@ COPY --from=builder /usr/local/include/google /usr/local/include/google
 COPY --from=builder /usr/local/go /usr/local/go
 # Copy CA certificates for HTTPS
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
-
-# Install packages needed for CGO
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
-		curl \
-		g++ \
-		gcc \
-		libc6-dev \
-		make \
-		pkg-config \
-		git \
-	&& apt-get clean \
-	&& rm -rf /var/tmp/* /tmp/* \
-		/var/lib/apt/lists/* \
-		/var/log/apt/* \
-	&& go env -w GOTOOLCHAIN=local \
-	&& go telemetry off
 
 ENTRYPOINT ["/usr/local/go/bin/go"]
 
