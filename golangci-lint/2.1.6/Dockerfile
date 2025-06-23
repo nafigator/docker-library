@@ -1,4 +1,4 @@
-FROM nafigat0r/go:1.24.3 AS builder
+FROM nafigat0r/go:1.24.4 AS builder
 
 # https://stackoverflow.com/questions/50126741/how-to-remove-intermediate-images-from-a-build-after-the-build
 LABEL stage=builder
@@ -10,7 +10,7 @@ RUN go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@${GOLANGCI
 
 WORKDIR /go
 
-FROM nafigat0r/go:1.24.3 AS image
+FROM nafigat0r/go:1.24.4 AS image
 
 ENV GOLANGCI_LINT_VERSION=v2.1.6
 
