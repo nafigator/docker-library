@@ -14,8 +14,7 @@ FROM nafigat0r/go:1.24.4 AS image
 
 ENV GOLANGCI_LINT_VERSION=v2.1.6
 
-COPY --from=builder /go /go
-COPY --from=builder /usr/local/go /usr/local/go
+COPY --from=builder /go/bin/golangci-lint /go/bin/golangci-lint
 
 WORKDIR /go
 
