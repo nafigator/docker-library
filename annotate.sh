@@ -7,6 +7,10 @@ IMAGE_REF="nafigat0r/$1";
 GITHUB_REF="nafigator/docker-library";
 REVISION=$(git log -n 1 --format=%h);
 IMAGE_TAG="$2";
+NAME_REF="$1"
+
+test "$NAME_REF" = "go" && NAME_REF="golang"
+
 BUILD_TIME="$(docker inspect ${IMAGE_REF}:${IMAGE_TAG} | grep -oP '(?<=Created": ")[^"]*')";
 docker run -u 0 \
     --rm -it \
@@ -22,6 +26,6 @@ docker run -u 0 \
     --annotation "org.opencontainers.image.authors=alex@itvault.info" \
     --annotation "org.opencontainers.image.vendor=Alexander Yancharuk" \
     --annotation "org.opencontainers.image.licenses=MIT" \
-    --annotation "org.opencontainers.image.url=https://github.com/${GITHUB_REF}/blob/${REVISION}/$1/${IMAGE_TAG}/README.md" \
-    --annotation "org.opencontainers.image.source=https://github.com/${GITHUB_REF}/blob/${REVISION}/$1/${IMAGE_TAG}/Dockerfile" \
+    --annotation "org.opencontainers.image.url=https://github.com/${GITHUB_REF}/blob/${REVISION}/${NAME_REF}/${IMAGE_TAG}/README.md" \
+    --annotation "org.opencontainers.image.source=https://github.com/${GITHUB_REF}/blob/${REVISION}/${NAME_REF}/${IMAGE_TAG}/Dockerfile" \
     ${IMAGE_REF}:${IMAGE_TAG}
