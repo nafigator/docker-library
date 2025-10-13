@@ -1,12 +1,10 @@
-FROM nafigat0r/go:1.24.4 AS builder
+FROM nafigat0r/go:1.25.2 AS builder
 
 LABEL stage=builder
 
 # Install packages needed for installation
 RUN apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
-		ca-certificates \
-		curl \
 		unzip
 
 ENV GOPATH /go
@@ -17,7 +15,7 @@ ENV GOVULNCHECK_VERSION 1.1.4
 RUN go install golang.org/x/vuln/cmd/govulncheck@v${GOVULNCHECK_VERSION} \
 	&& go clean -cache -testcache -modcache -fuzzcache
 
-FROM nafigat0r/go:1.24.4 AS image
+FROM nafigat0r/go:1.25.2 AS image
 
 ENV GOVULNCHECK_VERSION 1.1.4
 
