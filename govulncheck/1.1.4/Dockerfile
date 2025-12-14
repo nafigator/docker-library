@@ -1,4 +1,4 @@
-FROM nafigat0r/go:1.25.2 AS builder
+FROM nafigat0r/go:1.25.5 AS builder
 
 LABEL stage=builder
 
@@ -15,7 +15,7 @@ ENV GOVULNCHECK_VERSION 1.1.4
 RUN go install golang.org/x/vuln/cmd/govulncheck@v${GOVULNCHECK_VERSION} \
 	&& go clean -cache -testcache -modcache -fuzzcache
 
-FROM nafigat0r/go:1.25.2 AS image
+FROM nafigat0r/go:1.25.5 AS image
 
 ENV GOVULNCHECK_VERSION 1.1.4
 
