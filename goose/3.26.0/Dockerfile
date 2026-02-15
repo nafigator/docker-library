@@ -1,4 +1,4 @@
-FROM nafigat0r/go:1.25.5 AS builder
+FROM nafigat0r/go:1.26.0 AS builder
 
 LABEL stage=builder
 
