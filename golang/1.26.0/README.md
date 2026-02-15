@@ -1,5 +1,5 @@
 # Versions
-Go 1.25.5
+Go 1.26.0
 
 # Supported tags and respective `Dockerfile` links
 -	[`1.26.0` (*1.26.0/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/golang/1.26.0/Dockerfile)
@@ -30,13 +30,12 @@ $ docker run -ti --rm --user "$(id -u):$(id -g)" \
     -v /etc/passwd:/etc/passwd:ro \
     -v /etc/group:/etc/group:ro \
     -v "$(readlink -f ${HOME}/.gitconfig):/etc/gitconfig:ro" \
-    -v "${HOME}/.config:/var/config" \
     -v "${GOPATH}/pkg:/go/pkg:Z" \
     -v "${GOPATH}/mod:/go/mod:Z" \
-    -v "${HOME}/.cache:/var/cache" \
-    -v "${HOME}/.config:/var/config" \
-    -v "$(pwd):/tmp/project" \
-    -w "/tmp/project" \
+    -v "${HOME}/.cache":/var/cache \
+    -v "${HOME}/.config":/var/config \
+    -v "$(pwd)":/tmp/project \
+    -w /tmp/project \
     --network host \
     nafigat0r/go:1.26.0
 ```
