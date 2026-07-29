@@ -1,7 +1,10 @@
 #!/bin/bash
 
 # Usage example
-# ./annotate.sh govulncheck 1.1.4 'Security utility for checking dependencies vulnerabilities.'
+# ./annotate.sh govulncheck 1.6.0 'Security utility for checking dependencies vulnerabilities.'
+
+# Image annotation checks
+# docker manifest inspect nafigat0r/govulncheck:1.6.0 | grep opencontainers
 
 IMAGE_REF="nafigat0r/$1";
 GITHUB_REF="nafigator/docker-library";
@@ -16,7 +19,7 @@ docker run -u 0 \
     --rm -it \
     -v "/home/${USER}/.docker/config.json:/root/.docker/config.json:ro" \
     --network host \
-    nafigat0r/crane:0.20.7 mutate \
+    nafigat0r/crane:0.21.7 mutate \
     --annotation "org.opencontainers.image.revision=${REVISION}" \
     --annotation "org.opencontainers.image.created=${BUILD_TIME}" \
     --annotation "org.opencontainers.image.title=$1" \
