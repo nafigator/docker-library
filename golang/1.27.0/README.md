@@ -5,16 +5,16 @@ Go 1.27.0
 -	[`1.27.0` (*1.27.0/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/golang/1.27.0/Dockerfile)
 -	[`1.26.5` (*1.26.5/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/golang/1.26.5/Dockerfile)
 -	[`1.26.0` (*1.26.0/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/golang/1.26.0/Dockerfile)
+
+<details>
+  <summary>Older versions</summary>
+
 -	[`1.25.5` (*1.25.5/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/golang/1.25.5/Dockerfile)
 -	[`1.25.2` (*1.25.2/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/golang/1.25.2/Dockerfile)
 -	[`1.24.4` (*1.24.4/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/golang/1.24.4/Dockerfile)
 -	[`1.24.3` (*1.24.3/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/golang/1.24.3/Dockerfile)
 -	[`1.24.1` (*1.24.1/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/golang/1.24.1/Dockerfile)
 -	[`1.23.4` (*1.23.4/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/golang/1.23.4/Dockerfile)
-
-<details>
-  <summary>Older images</summary>
-
 -	[`1.20.6` (*1.20.6/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/golang/1.20.6/Dockerfile)
 -	[`1.19.4` (*1.19.3/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/golang/1.19.4/Dockerfile)
 -	[`1.19.3` (*1.19.3/Dockerfile*)](https://github.com/nafigator/docker-library/blob/master/golang/1.19.3/Dockerfile)
