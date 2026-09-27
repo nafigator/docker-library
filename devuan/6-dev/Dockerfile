@@ -61,7 +61,17 @@ RUN    echo "deb     http://mirror.yandex.ru/mirrors/devuan/merged excalibur mai
 		libxcb-dri3-dev libxcb-errors-dev libxcb-image0-dev libxcb-present-dev \
 		libxcb-render-util0-dev libxcb-render0-dev libxcb-shm0-dev \
 		libxcb-sync-dev libxcb-xfixes0-dev libxcb-xinput-dev libxcb1-dev \
-		libeis-dev
+		libeis-dev \
+		bindgen cbindgen directx-headers-dev libc6-dbg libclang-19-dev \
+		libclang-cpp19-dev libclang-dev libclc-19 libclc-19-dev \
+		libllvmspirvlib-19-dev libllvmspirvlib19.1 libncurses-dev libncurses6 \
+		librust-paste-dev librust-proc-macro2-dev librust-quote-dev librust-syn-dev \
+		librust-unicode-ident-dev libsensors-dev libset-scalar-perl libstd-rust-1.85 \
+		libstd-rust-dev libva-dev libva-drm2 libva-glx2 libva-wayland2 libva-x11-2 \
+		libva2 libvdpau-dev libvdpau1 libwayland-egl-backend-dev libxcb-dri2-0 \
+		libxcb-dri2-0-dev libxcb-glx0-dev libxshmfence-dev libyaml-0-2 libz3-dev \
+		llvm-19-dev llvm-19-tools llvm-spirv-19 python3-mako python3-markupsafe \
+		python3-ply python3-pygments python3-yaml rustc rustfmt valgrind
 
 # docker build --force-rm --no-cache --tag nafigat0r/devuan:6-dev ./
 # ./annotate.sh devuan 6-dev 'Devuan 6 image for argon builids'
