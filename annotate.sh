@@ -19,7 +19,7 @@ docker run -u 0 \
     --rm -it \
     -v "/home/${USER}/.docker/config.json:/root/.docker/config.json:ro" \
     --network host \
-    nafigat0r/crane:0.21.7 mutate \
+    nafigat0r/crane:0.21.9 mutate \
     --annotation "org.opencontainers.image.revision=${REVISION}" \
     --annotation "org.opencontainers.image.created=${BUILD_TIME}" \
     --annotation "org.opencontainers.image.title=$1" \
