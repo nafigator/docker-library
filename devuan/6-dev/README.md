@@ -7,5 +7,5 @@ Devuan 6 (Excalibur)
 # How to use this image
 ### Run container via docker
 ```bash
-$ docker run --rm -ti nafigat0r/devuan:excalibur-build
+$ docker run --rm -ti nafigat0r/devuan:6-dev
 ```
