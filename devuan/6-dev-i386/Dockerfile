@@ -113,4 +113,4 @@ RUN    mkdir -p /etc/sudoers.d \
 	done
 
 # docker build --force-rm --no-cache --tag nafigat0r/devuan:6-dev-i386 ./
-# ./annotate.sh devuan 6-dev 'Devuan 6 image for Argon Forge i386 builids'
+# ./annotate.sh devuan 6-dev-i386 'Devuan 6 image for Argon Forge i386 builids'
