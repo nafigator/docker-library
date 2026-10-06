@@ -102,7 +102,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends \
 		x11proto-dev \
 		zlib1g-dev
 
-RUN    mkdir -p /etc/sudoers.d \
+RUN useradd -u 1000 -m dev \
+	&& mkdir -p /etc/sudoers.d \
 	&& echo "ALL ALL = (ALL) NOPASSWD: /usr/bin/apt, /usr/bin/apt-get" > /etc/sudoers.d/apt \
 	&& echo "ALL ALL = (ALL) NOPASSWD: /usr/bin/dpkg" > /etc/sudoers.d/dpkg \
 	&& visudo -cf /etc/sudoers.d/apt \
