@@ -162,6 +162,7 @@ RUN    echo "deb     http://mirror.yandex.ru/mirrors/devuan/merged excalibur mai
 		rustfmt \
 		samba-dev \
 		spirv-headers \
+		sudo \
 		valgrind \
 		vkroots-headers \
 		wayland-protocols \
@@ -170,6 +171,16 @@ RUN    echo "deb     http://mirror.yandex.ru/mirrors/devuan/merged excalibur mai
 		xz-utils \
 		zlib1g-dev:i386 \
 		zstd
+
+RUN    mkdir -p /etc/sudoers.d \
+	&& echo "ALL ALL = (ALL) NOPASSWD: /usr/bin/apt, /usr/bin/apt-get" > /etc/sudoers.d/apt \
+	&& echo "ALL ALL = (ALL) NOPASSWD: /usr/bin/dpkg" > /etc/sudoers.d/dpkg \
+	&& visudo -cf /etc/sudoers.d/apt \
+	&& visudo -cf /etc/sudoers.d/dpkg \
+	&& for f in apt dpkg; do \
+		chmod 0440 "/etc/sudoers.d/$f"; \
+		chown root:root "/etc/sudoers.d/$f"; \
+	done
 
 # docker build --force-rm --no-cache --tag nafigat0r/devuan:6-dev ./
 # ./annotate.sh devuan 6-dev 'Devuan 6 image for Argon Forge builids'
