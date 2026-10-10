@@ -23,30 +23,48 @@ RUN DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends \
 		fakeroot \
 		flex \
 		glslang-tools \
+		hwdata \
 		libaudit-dev \
+		libavif-dev \
+		libbenchmark-dev \
 		libc6-dev \
+		libcap-dev \
+		libcatch2-dev \
 		libclang-19-dev \
 		libclang-cpp19-dev \
 		libclc-19 \
 		libclc-19-dev \
 		libdbus-1-dev \
+		libdisplay-info-dev \
 		libdrm-dev \
 		libegl1-mesa-dev \
+		libeis-dev \
 		libelf-dev \
 		libexpat1-dev \
 		libgbm-dev \
 		libgcrypt20-dev \
 		libgles2-mesa-dev \
+		libglm-dev \
 		libglvnd-core-dev \
 		libglvnd-dev \
 		libglx-mesa0 \
+		libinput-dev \
+		libliftoff-dev \
 		libllvm19 \
 		libllvmspirvlib-19-dev \
+		libluajit-5.1-dev \
 		liblzma-dev \
 		libpciaccess-dev \
+		libpipewire-0.3-dev \
+		libpixman-1-dev \
+		libpng-dev \
+		libpugixml-dev \
 		librust-paste-dev \
 		librust-syn-dev \
+		libsdl2-dev \
+		libseat-dev \
 		libsensors-dev \
+		libstb-dev \
 		libsystemd-dev \
 		libudev-dev \
 		libunwind-dev \
@@ -55,21 +73,39 @@ RUN DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends \
 		libvulkan-dev \
 		libwayland-dev \
 		libwayland-egl-backend-dev \
+		libwlroots-0.18-dev \
 		libx11-dev \
 		libx11-xcb-dev \
+		libxcb-composite0-dev \
 		libxcb-dri2-0-dev \
 		libxcb-dri3-dev \
+		libxcb-errors-dev \
+		libxcb-ewmh-dev \
 		libxcb-glx0-dev \
+		libxcb-icccm4-dev \
+		libxcb-image0-dev \
 		libxcb-present-dev \
 		libxcb-randr0-dev \
+		libxcb-render-util0-dev \
+		libxcb-render0-dev \
+		libxcb-res0-dev \
 		libxcb-shm0-dev \
 		libxcb-sync-dev \
 		libxcb-xfixes0-dev \
+		libxcb-xinput-dev \
+		libxcb1-dev \
+		libxcomposite-dev \
+		libxcursor-dev \
 		libxdamage-dev \
 		libxext-dev \
 		libxfixes-dev \
+		libxkbcommon-dev \
+		libxmu-dev \
 		libxrandr-dev \
+		libxrender-dev \
+		libxres-dev \
 		libxshmfence-dev \
+		libxtst-dev \
 		libxxf86vm-dev \
 		libzstd-dev \
 		linux-libc-dev \
@@ -98,8 +134,11 @@ RUN DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends \
 		spirv-tools \
 		sudo \
 		valgrind \
+		vkroots-headers \
 		wayland-protocols \
+		wget \
 		x11proto-dev \
+		xwayland \
 		zlib1g-dev
 
 RUN useradd -u 1000 -m dev \
