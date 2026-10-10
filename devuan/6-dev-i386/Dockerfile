@@ -17,11 +17,13 @@ RUN DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends \
 		clang-19 \
 		cmake \
 		debhelper \
+		debhelper-compat \
 		devscripts \
 		dpkg-dev \
 		equivs \
 		fakeroot \
 		flex \
+		git \
 		glslang-tools \
 		hwdata \
 		libaudit-dev \
