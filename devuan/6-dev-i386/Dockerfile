@@ -5,6 +5,7 @@ RUN    echo "deb     http://mirror.yandex.ru/mirrors/devuan/merged excalibur mai
 	&& echo "deb     http://mirror.yandex.ru/mirrors/devuan/merged excalibur-updates main contrib" >> /etc/apt/sources.list \
 	&& echo "deb-src http://mirror.yandex.ru/mirrors/devuan/merged excalibur-updates main contrib" >> /etc/apt/sources.list \
 	&& echo "deb     http://mirror.yandex.ru/mirrors/devuan/merged excalibur-security main contrib" >> /etc/apt/sources.list \
+	&& echo 'Acquire::http::Timeout "20";\nAcquire::ftp::Timeout "20";\nAcquire::Retries "40";' > /etc/apt/apt.conf.d/99timeout \
 	&& apt update \
 	&& DEBIAN_FRONTEND=noninteractive apt full-upgrade -y
 
