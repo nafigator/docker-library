@@ -19,6 +19,7 @@ RUN    echo "deb     http://mirror.yandex.ru/mirrors/devuan/merged excalibur mai
 		clang \
 		cmake \
 		debhelper \
+		debhelper-compat \
 		devscripts \
 		directx-headers-dev \
 		dpkg-dev \
