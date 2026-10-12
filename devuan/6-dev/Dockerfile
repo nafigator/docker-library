@@ -9,7 +9,6 @@ RUN    echo "deb     http://mirror.yandex.ru/mirrors/devuan/merged excalibur mai
 	&& echo 'Acquire::http::Timeout "20";\nAcquire::ftp::Timeout "20";\nAcquire::Retries "40";' > /etc/apt/apt.conf.d/99timeout \
 	&& apt update \
 	&& DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends \
-		bindgen \
 		bison \
 		build-essential \
 		ca-certificates \
@@ -169,7 +168,7 @@ RUN    echo "deb     http://mirror.yandex.ru/mirrors/devuan/merged excalibur mai
 	&& rm -rf /var/cache/apt/archives/*
 
 # Установка bindgen версии 0.72.1 для совместимости с LLVM 22
-RUN cargo install bindgen-cli --version '=0.72.1' --locked
+RUN cargo install bindgen-cli --version '=0.72.1' --locked --root /usr/local
 
 RUN cd /tmp \
 	&& rm -rf SPIRV-LLVM-Translator-22.1.7 \

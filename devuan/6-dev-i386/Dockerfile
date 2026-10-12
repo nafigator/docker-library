@@ -11,7 +11,6 @@ RUN    echo "deb     http://mirror.yandex.ru/mirrors/devuan/merged excalibur mai
 	&& DEBIAN_FRONTEND=noninteractive apt full-upgrade -y
 
 RUN DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends \
-		bindgen \
 		bison \
 		build-essential \
 		cargo \
@@ -149,7 +148,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends \
 		&& rm -rf /var/cache/apt/archives/*
 
 # Установка bindgen версии 0.72.1 для совместимости с LLVM 22
-RUN cargo install bindgen-cli --version '=0.72.1' --locked
+RUN cargo install bindgen-cli --version '=0.72.1' --locked --root /usr/local
 
 RUN cd /tmp \
 	&& rm -rf SPIRV-LLVM-Translator-22.1.7 \
