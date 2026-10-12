@@ -4,6 +4,7 @@ RUN    echo "deb     http://mirror.yandex.ru/mirrors/devuan/merged excalibur mai
 	&& echo "deb-src http://mirror.yandex.ru/mirrors/devuan/merged excalibur main contrib" >> /etc/apt/sources.list \
 	&& echo "deb     http://mirror.yandex.ru/mirrors/devuan/merged excalibur-updates main contrib" >> /etc/apt/sources.list \
 	&& echo "deb-src http://mirror.yandex.ru/mirrors/devuan/merged excalibur-updates main contrib" >> /etc/apt/sources.list \
+	&& echo "deb     http://mirror.yandex.ru/mirrors/devuan/merged excalibur-proposed-updates main contrib" >> /etc/apt/sources.list \
 	&& echo "deb     http://mirror.yandex.ru/mirrors/devuan/merged excalibur-security main contrib" >> /etc/apt/sources.list \
 	&& echo 'Acquire::http::Timeout "20";\nAcquire::ftp::Timeout "20";\nAcquire::Retries "40";' > /etc/apt/apt.conf.d/99timeout \
 	&& apt update \
@@ -15,7 +16,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends \
 		build-essential \
 		cbindgen \
 		ccache \
-		clang-19 \
+		clang-22 \
 		cmake \
 		debhelper \
 		debhelper-compat \
@@ -33,10 +34,11 @@ RUN DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends \
 		libc6-dev \
 		libcap-dev \
 		libcatch2-dev \
-		libclang-19-dev \
-		libclang-cpp19-dev \
-		libclc-19 \
-		libclc-19-dev \
+		libclang-22-dev \
+		libclang-cpp22-dev \
+		libclang-rt-22-dev \
+		libclc-22 \
+		libclc-22-dev \
 		libdbus-1-dev \
 		libdisplay-info-dev \
 		libdrm-dev \
@@ -53,8 +55,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends \
 		libglx-mesa0 \
 		libinput-dev \
 		libliftoff-dev \
-		libllvm19 \
-		libllvmspirvlib-19-dev \
+		libllvm22 \
 		libluajit-5.1-dev \
 		liblzma-dev \
 		libpciaccess-dev \
@@ -112,11 +113,10 @@ RUN DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends \
 		libxxf86vm-dev \
 		libzstd-dev \
 		linux-libc-dev \
-		lld-19 \
-		llvm-19 \
-		llvm-19-dev \
-		llvm-19-tools \
-		llvm-spirv-19 \
+		lld-22 \
+		llvm-22 \
+		llvm-22-dev \
+		llvm-22-tools \
 		meson \
 		ninja-build \
 		pkg-config \
@@ -136,13 +136,34 @@ RUN DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends \
 		spirv-headers \
 		spirv-tools \
 		sudo \
-		valgrind \
 		vkroots-headers \
 		wayland-protocols \
 		wget \
 		x11proto-dev \
 		xwayland \
-		zlib1g-dev
+		zlib1g-dev \
+		&& apt-get clean \
+		&& rm -rf /var/lib/apt/lists/* \
+		&& rm -rf /var/cache/apt/archives/*
+
+RUN cd /tmp \
+	&& rm -rf SPIRV-LLVM-Translator-22.1.7 \
+	&& wget https://github.com/KhronosGroup/SPIRV-LLVM-Translator/archive/refs/tags/v22.1.7.tar.gz \
+	&& tar -xzf v22.1.7.tar.gz \
+	&& cd SPIRV-LLVM-Translator-22.1.7 \
+	&& mkdir build && cd build \
+	&& cmake -DCMAKE_BUILD_TYPE=Release \
+			-DBUILD_SHARED_LIBS=ON \
+			-DCMAKE_POSITION_INDEPENDENT_CODE=ON \
+			-DLLVM_DIR=/usr/lib/llvm-22/lib/cmake/llvm \
+			-DCMAKE_INSTALL_PREFIX=/usr \
+			.. \
+	&& make -j$(nproc) \
+	&& make install \
+	&& ldconfig \
+	&& cd / \
+	&& rm -rf /tmp/SPIRV-LLVM-Translator-22.1.7 \
+	&& rm -f /tmp/v22.1.7.tar.gz
 
 RUN useradd -u 1000 -m dev \
 	&& mkdir -p /etc/sudoers.d \
