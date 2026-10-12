@@ -11,6 +11,7 @@ RUN    echo "deb     http://mirror.yandex.ru/mirrors/devuan/merged excalibur mai
 	&& DEBIAN_FRONTEND=noninteractive apt full-upgrade -y
 
 RUN DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends \
+		bindgen \
 		bison \
 		build-essential \
 		cargo \

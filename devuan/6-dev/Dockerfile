@@ -9,6 +9,7 @@ RUN    echo "deb     http://mirror.yandex.ru/mirrors/devuan/merged excalibur mai
 	&& echo 'Acquire::http::Timeout "20";\nAcquire::ftp::Timeout "20";\nAcquire::Retries "40";' > /etc/apt/apt.conf.d/99timeout \
 	&& apt update \
 	&& DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends \
+		bindgen \
 		bison \
 		build-essential \
 		ca-certificates \
