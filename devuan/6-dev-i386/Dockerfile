@@ -136,6 +136,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends \
 		spirv-headers \
 		spirv-tools \
 		sudo \
+		valgrind \
 		vkroots-headers \
 		wayland-protocols \
 		wget \

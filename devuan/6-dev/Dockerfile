@@ -16,7 +16,7 @@ RUN    echo "deb     http://mirror.yandex.ru/mirrors/devuan/merged excalibur mai
 		catch2 \
 		cbindgen \
 		ccache \
-		clang \
+		clang-22 \
 		cmake \
 		debhelper \
 		debhelper-compat \
@@ -156,6 +156,7 @@ RUN    echo "deb     http://mirror.yandex.ru/mirrors/devuan/merged excalibur mai
 		samba-dev \
 		spirv-headers \
 		sudo \
+		valgrind \
 		vkroots-headers \
 		wayland-protocols \
 		wget \
