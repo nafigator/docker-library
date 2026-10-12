@@ -13,6 +13,7 @@ RUN    echo "deb     http://mirror.yandex.ru/mirrors/devuan/merged excalibur mai
 		bison \
 		build-essential \
 		ca-certificates \
+		cargo \
 		catch2 \
 		cbindgen \
 		ccache \
@@ -166,6 +167,9 @@ RUN    echo "deb     http://mirror.yandex.ru/mirrors/devuan/merged excalibur mai
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& rm -rf /var/cache/apt/archives/*
+
+# Установка bindgen версии 0.72.1 для совместимости с LLVM 22
+RUN cargo install bindgen-cli --version '=0.72.1' --locked
 
 RUN cd /tmp \
 	&& rm -rf SPIRV-LLVM-Translator-22.1.7 \
