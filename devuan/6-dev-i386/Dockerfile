@@ -7,9 +7,13 @@ RUN    echo "deb     http://mirror.yandex.ru/mirrors/devuan/merged excalibur mai
 	&& echo "deb     http://mirror.yandex.ru/mirrors/devuan/merged excalibur-security main contrib" >> /etc/apt/sources.list \
 	&& echo 'Acquire::http::Timeout "20";\nAcquire::ftp::Timeout "20";\nAcquire::Retries "40";' > /etc/apt/apt.conf.d/99timeout \
 	&& apt update \
-	&& DEBIAN_FRONTEND=noninteractive apt full-upgrade -y
+	&& DEBIAN_FRONTEND=noninteractive apt full-upgrade -y \
+	&& apt-get clean \
+	&& rm -rf /var/lib/apt/lists/* \
+	&& rm -rf /var/cache/apt/archives/*
 
-RUN DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends \
+RUN apt update \
+    && DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends \
 		bindgen \
 		bison \
 		build-essential \
@@ -142,7 +146,10 @@ RUN DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends \
 		wget \
 		x11proto-dev \
 		xwayland \
-		zlib1g-dev
+		zlib1g-dev \
+	&& apt-get clean \
+	&& rm -rf /var/lib/apt/lists/* \
+	&& rm -rf /var/cache/apt/archives/*
 
 RUN useradd -u 1000 -m dev \
 	&& mkdir -p /etc/sudoers.d \

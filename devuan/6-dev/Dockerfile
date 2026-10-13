@@ -172,7 +172,10 @@ RUN    echo "deb     http://mirror.yandex.ru/mirrors/devuan/merged excalibur mai
 		xwayland \
 		xz-utils \
 		zlib1g-dev:i386 \
-		zstd
+		zstd \
+	&& apt-get clean \
+	&& rm -rf /var/lib/apt/lists/* \
+	&& rm -rf /var/cache/apt/archives/*
 
 RUN useradd -u 1000 -m dev \
 	&& mkdir -p /etc/sudoers.d \
